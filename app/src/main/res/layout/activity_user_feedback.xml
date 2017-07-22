@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_White"
+    android:orientation="vertical">
+
+   <include layout="@layout/title_layout"/>
+
+    <EditText
+        android:id="@+id/user_feedback_EdId"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/voucher_stroke_gray"
+        android:gravity="top|left"
+        android:hint="@string/please_describe_the_problems_you_have_encountered"
+        android:padding="10dp"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/sure_summit_btnId"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_feedback_EdId"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="25dp"
+        android:background="@color/mBlue_l"
+        android:gravity="center"
+        android:text="@string/confirm"
+        android:textColor="@color/bg_White" />
+
+</LinearLayout>

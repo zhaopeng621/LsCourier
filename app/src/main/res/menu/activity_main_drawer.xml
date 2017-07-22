@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_order"
+            android:icon="@mipmap/icon_mytask_normal"
+            android:title="@string/my_order" />
+        <item
+            android:id="@+id/nav_wallet"
+            android:icon="@mipmap/icon_mywallet"
+            android:title="@string/my_wallet" />
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@mipmap/icon_setting"
+            android:title="@string/my_setting" />
+
+    </group>
+
+</menu>

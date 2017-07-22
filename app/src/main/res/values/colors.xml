@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2790fd</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <!-- 浅灰色 -->
+    <color name="bg_Gray_light">#F0F0F0</color>
+    <!-- 白色 -->
+    <color name="bg_White">#FFFFFF</color>
+    <!-- 黑色 -->
+    <color name="bg_Black">#1A1A1A</color>
+    <!-- 浅黑色 -->
+    <color name="bg_Black_light">#444444</color>
+    <!-- 灰色 -->
+    <color name="bg_Gray">#CCCCCC</color>
+    <!-- 蓝色 -->
+    <color name="mBlue_d">#0033ff</color>
+    <!-- 西红柿色 -->
+    <color name="tomato">#FF6347</color>
+    <!--浅蓝-->
+    <color name="mBlue_l">#2790fd</color>
+    <color name="light_gray">#E6E7E7</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="light_blue">#1786F3</color>
+    <color name="middle_gray">#847D7D</color>
+    <color name="wine">#B61C12</color>
+    <color name="c1">#0ACCAC</color>
+</resources>

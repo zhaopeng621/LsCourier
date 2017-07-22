@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#f0f0f0"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_layout" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <EditText
+            android:id="@+id/et_username"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/getverificationcode"
+            android:background="@drawable/voucher_stroke_gray"
+            android:digits="0123456789"
+            android:hint="@string/inputphone"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textSize="15dp" />
+
+        <Button
+            android:id="@+id/getverificationcode"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/voucher_center_blue"
+            android:text="@string/getverificationcode"
+            android:textColor="@color/bg_White"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+
+    <EditText
+        android:id="@+id/et_code"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="10dp"
+        android:layout_toLeftOf="@+id/img_code"
+        android:background="@drawable/voucher_stroke_gray"
+        android:digits="0123456789"
+        android:hint="@string/inputverificationcode"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:textSize="15dp" />
+
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="10dp"
+        android:background="@drawable/voucher_stroke_gray"
+        android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        android:hint="@string/loginpassword"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:textSize="15dp" />
+
+
+    <Button
+        android:id="@+id/bn_regist"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/voucher_center_blue"
+        android:gravity="center"
+        android:text="注册"
+        android:textColor="#fff"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:id="@+id/ll_remark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="@dimen/img_small"
+            android:layout_height="@dimen/img_small"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/checkbox_selector"
+            android:button="@null"
+            android:checked="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:text="@string/remark"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/remark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/remarkls"
+            android:textColor="@color/mBlue_d"
+            android:textSize="14sp" />
+    </LinearLayout>
+</LinearLayout>

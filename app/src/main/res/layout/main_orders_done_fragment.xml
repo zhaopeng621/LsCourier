@@ -1,0 +1,24 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lst.lscourier.fragment.OrdersDoneFragment">
+
+    <TextView
+        android:id="@+id/tv_null"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/you_have_no_orders_done"
+        android:textColor="@color/middle_gray"
+        android:textSize="13sp"
+        android:gravity="center"/>
+
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/recycleview3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:visibility="invisible">
+    </com.jcodecraeer.xrecyclerview.XRecyclerView>
+
+</FrameLayout>

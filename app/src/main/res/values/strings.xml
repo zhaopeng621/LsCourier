@@ -1,0 +1,199 @@
+<resources>
+    <string name="app_name">龙商闪送员</string>
+    <string name="confirm">确定</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="my_order">我的订单</string>
+
+    <string name="my_setting">设置中心</string>
+    <string name="my_genre_choose">请选择物品类型</string>
+    <string name="my_genre_name">请输入物品名称</string>
+    <string name="my_genre_postscript">备注信息:</string>
+    <string name="my_postscript">如有特殊要求请输入备注信息</string>
+    <string name="my_address">小区名/大厦名/街道门牌号</string>
+    <string name="address_near">附近地址</string>
+    <string name="address_history">历史地址</string>
+    <string name="address_floor">楼层/门牌号</string>
+    <string name="name">姓名</string>
+    <string name="phone">电话</string>
+    <string name="find">快速查找</string>
+    <string name="next">下一步</string>
+    <string name="notifyTitle">提示</string>
+    <string name="notifyMsg">当前应用缺少必要权限。\n\n请点击\"设置\"-\"权限\"-打开所需权限。</string>
+    <string name="setting">设置</string>
+    <string name="cancel">取消</string>
+    <string name="city">当前定位城市是:</string>
+    <string name="inputphone">请输入手机号</string>
+    <string name="inputverificationcode">请输入验证码</string>
+    <string name="loginpassword">请输入密码</string>
+    <string name="loginrepwd">请输入新密码</string>
+    <string name="login_btn">登录</string>
+    <string name="find_password">忘记密码?</string>
+    <string name="registerfree">立即注册</string>
+    <string name="getverificationcode">获取验证码</string>
+    <string name="remark">我已阅读并同意</string>
+    <string name="remarkls">《龙商闪送服务条款》</string>
+    <string name="my_order_for_goods">我的订单</string>
+    <string name="all_orders">全部单</string>
+
+    <string name="order_number">00000000000000</string>
+    <string name="order_status">订单状态</string>
+    <string name="order_price">订单价格</string>
+    <string name="order_taking">接单地址:</string>
+    <string name="order_taking_address">接单地址s</string>
+    <string name="service">送达地址:</string>
+    <string name="service_address">送达地址-saj</string>
+    <string name="order_time">下单时间</string>
+    <string name="you_have_no_search_orders">未搜索到订单！</string>
+    <string name="you_have_no_orders">您还没有订单！</string>
+    <string name="you_have_no_orders_in_progress">您还没有进行中订单！</string>
+    <string name="you_have_no_orders_done">您还没有已完成订单！</string>
+    <string name="you_have_no_orders_canceled">您还没有取消单！</string>
+    <string name="search">搜索</string>
+    <string name="edit_text_hint">请输入手机号或姓名</string>
+    <string name="pay_result_callback_msg" formatted="false">微信支付结果：%s</string>
+    <string name="app_tip">提示</string>
+
+    <string name="my_wallet">我的钱包</string>
+    <string name="my_balance">我的余额（元）</string>
+    <string name="zero">0</string>
+    <string name="instant_recharge">立即充值</string>
+    <string name="recharge">充值</string>
+    <string name="phone_number">手机号</string>
+    <string name="edit_digits">0123456789</string>
+    <string name="edit_length">20</string>
+    <string name="recharge_amount">充值金额</string>
+    <string name="recharge_instruction">（充值金额无有效期限制、不可退款或转让）</string>
+    <string name="one_thousand">1000</string>
+    <string name="two_thousand">2000</string>
+    <string name="three_thousand">3000</string>
+    <string name="four_thousand">5000</string>
+    <string name="custom_amount">自定义金额：</string>
+    <string name="please_input_amount">请输入金额</string>
+    <string name="alipay">支付宝支付</string>
+    <string name="alipay_instruction">推荐有支付宝帐号的用户使用</string>
+    <string name="wechat_payment">微信支付</string>
+    <string name="wechat_payment_instruction">推荐安装微信5.0及以上版本使用</string>
+    <string name="bank_card_payment">银行卡支付</string>
+    <string name="bank_card_payment_instruction">支持储蓄卡信用卡，无需开通网银</string>
+    <string name="confirm_recharge">确认充值</string>
+    <string name="apply_for_invoice">申请发票</string>
+    <string name="yuan">元</string>
+    <string name="transaction_details">交易明细</string>
+    <string name="price_indication">价格说明</string>
+    <string name="consumer_details_no">你还没有消费记录!</string>
+    <string name="recharge_record_no">你还没有充值记录!</string>
+    <string name="refund_record_no">你还没有退款记录!</string>
+
+
+    <string name="my_invoice">我的发票</string>
+    <string name="the_number_of_apply_for_invoice">可申请发票金额</string>
+    <string name="zero_point_zero">0.0</string>
+    <string name="invoice_application_record">发票申请记录</string>
+    <string name="no_invoice_application_record">暂无发票申请记录。</string>
+    <string name="apply_for_invoice_toast">申请开发票金额不能小于最小发票金额：0元</string>
+    <string name="apply_for_invoice_instruction">申请发票说明</string>
+    <string name="apply_for_invoice_money">申请发票</string>
+    <string name="invoice_type">发票类型</string>
+    <string name="invoice_title">发票抬头</string>
+    <string name="invoice_title_msg">请输入纳税人姓名</string>
+    <string name="taxpayer_number">请输入纳税人识别号</string>
+    <string name="taxpayer_details">收票人信息</string>
+    <string name="taxpayer_phone">收票人手机</string>
+    <string name="taxpayer_phone_msg">可用手机号在发票服务平台查询，必填</string>
+    <string name="taxpayer_email">收票人邮箱</string>
+    <string name="taxpayer_email_msg">用于接收电子发票的邮箱，选填</string>
+    <string name="personal">个人</string>
+    <string name="units">单位</string>
+    <string name="invoice_paper">纸质发票</string>
+    <string name="invoice_e">电子发票</string>
+    <string name="invoice_explain">电子发票与纸质发票具有同等法律效力，可用于报销入账。</string>
+
+    <string name="order_information">订单信息</string>
+    <string name="another_order">再来一单</string>
+    <string name="complain">投诉</string>
+
+    <string name="order_progress">订单进度</string>
+    <string name="order_details">订单详情</string>
+
+    <string name="money">金额</string>
+    <string name="the_order_number">订单号</string>
+    <string name="time">时间</string>
+    <string name="status">状态</string>
+
+
+    <string name="instruction_of_apply_for_invoice">尊敬的客户：\n1、您每次申请的发票满300
+        （含）元包邮，不满300元由您到付快递费用。您申请的发票将在10个工作日内寄出。\n2、到付
+        费用由快递公司收取，如需快递费用发票，请向快递员或快递公司索取，闪送不提供快递到付费
+        用的发票。\n快递到付费用价格中地区和预估费用为：\n北京：10-15元；\n新疆、西藏：20-25
+        元；\n其他地区：15-20元\n以上费用仅作参考，将由快递公司按实际情况收取，闪送对以上费用
+        不做承诺。\n3、无论包邮还是到付，将由闪送指定的快递公司邮寄给您，不支持选择快递公司或
+        平邮。\n4、暂不支持部分偏远地区、港澳台及海外邮寄。\n5、发票分为机打发票和通用定额发
+        票（）手撕发票。一般来讲300元（不含）以下的开具通用定额发票，300元（含）以上的将为您
+        随机开具机打发票或通用定额发票。\n6、无论是通用定额发票（手撕发票）还是机打发票，均为
+        国税合法发票，不影响使用和报销，您可在国税官方网站查询。本公司不支持选择发票类型，不
+        支持更换发票类型。\n7、您每次申请的发票，如闪送开具机打发票，则为1张；如公司开具通用
+        定额发票，则可能为多张。发票每申请一次，邮寄一次，不支持多次申请合并一次邮寄。\n8、
+        机打发票会体现您申请的发票抬头，通用定额发票则不体现。\n9、机打发票开票内容仅支持“服
+        务费”；通用定额发票无开票内容。\n10、请完整正确地填写您的地址信息、发票抬头和开票金
+        额等信息，如因您的原因造成地址错误无法送达，将由您承担退回和再次邮寄的快递费用；如因
+        您的原因造成发票抬头、开票金额等错误，我公司将不予重新开具发票。\n11、请您妥善保管发
+        票，如您在收到发票之后丢失，我公司将不予重新开具发票。\n12、充值用户充值后，您可随时
+        申请开具发票，可申请开票金额不超过充值金额；费用一旦充值成功，将不能申请退款。\n感谢
+        您使用闪送服务，如需帮助请拨打闪送客户服务热线400-060-8585，祝您生活愉快！</string>
+
+    <string name="price_instruction_1">5公里以内，5公斤以下，16元；\n5公里后每增加5公里10元；
+        \n5-20公斤每增加1kg，加收2元；\n超出20kg后，每增加1kg加收5元；\n晚00：00：00至次日
+        07：00：00下单或此时间段内的预约单，需支付夜间服务费10元；\n5公里内60分钟，超过5公
+        里每加5公里30分钟；\n\n*北京价格，其他城市略有浮动</string>
+    <string name="price_instruction_2">1、溢价是闪送为了保证良好的服务体验，根据供需情况动
+        态调整价格的策略\n\n2、天气、交通高峰时段、特殊节假日等原因可能造成溢价\n\n3、倍数
+        溢价运算规则：（遇小数点向上取整）\n溢价金额=订单优惠前的总金额（不包含加价费）*（
+        溢价倍数-1）</string>
+    <string name="premium_description">溢价说明</string>
+
+    <string name="order_closed">订单已关闭！</string>
+    <string name="order_run_time">2017年6月27日 17：38：20</string>
+    <string name="order_message">由于您超过30分钟未完成支付，订单已自动关闭</string>
+
+    <string name="total">总价：</string>
+    <string name="distance">距离：</string>
+    <string name="km">公里</string>
+    <string name="weight">重量：</string>
+    <string name="kg">公斤</string>
+    <string name="order_taking_address_user">赵女士</string>
+    <string name="service_address_user">郭先生</string>
+    <string name="order_taking_address_user_phone_number">01234567891</string>
+    <string name="order_taking_time">取件时间：</string>
+    <string name="immediate_fetch">立即取件</string>
+    <string name="item_information">物品信息：</string>
+    <string name="document">文件</string>
+    <string name="remark_information">备注信息：</string>
+    <string name="order_resource">订单来源：</string>
+    <string name="APP_resource">APP端</string>
+    <string name="payment">支付方式：</string>
+    <string name="payment_online">在线支付</string>
+    <string name="order_total_price">订单总价：</string>
+
+    <string name="anonymous_complaint">匿名投诉</string>
+    <string name="complaint_content">投诉内容：</string>
+    <string name="please_select_complaint_object">请选择投诉对象</string>
+    <string name="custom_service">客服</string>
+    <string name="system_problem">系统问题</string>
+    <string name="please_select_complaint_reason">请选则投诉原因</string>
+    <string name="please_write_complaint_reason">请填写投诉原因：</string>
+    <string name="will_anonymous_complaint">将匿名投诉（120字以内）</string>
+    <string name="either_need_custom_service_call_back">是否需要客服回电：</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="anonymous_submit_complaint">匿名提交投诉</string>
+    <string name="please_describe_the_problems_you_have_encountered">请输入你要反馈的具体内容</string>
+
+    <string name="generic_server_down">连接超时</string>
+    <string name="no_internet">网络异常</string>
+    <string name="generic_error">网络忙</string>
+    <string name="version_update">版本更新</string>
+
+</resources>

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.lst.lscourier.R;
-import com.lst.lscourier.adapter.RecyclerAdapter;
+import com.lst.lscourier.adapter.TOrderRecyclerAdapter;
 import com.lst.lscourier.bean.OrderEntry;
 
 import java.util.ArrayList;
@@ -60,7 +60,7 @@ public class AllOrdersFragment extends Fragment implements XRecyclerView.Loading
         recyclerView.setLoadingListener(this);
         if (datas.size() > 0) {
             tv_null.setVisibility(View.GONE);
-            RecyclerAdapter recyclerAdapter = new RecyclerAdapter(datas, getActivity());
+            TOrderRecyclerAdapter recyclerAdapter = new TOrderRecyclerAdapter(datas, getActivity());
             recyclerView.setAdapter(recyclerAdapter);
         } else {
             tv_null.setVisibility(View.VISIBLE);

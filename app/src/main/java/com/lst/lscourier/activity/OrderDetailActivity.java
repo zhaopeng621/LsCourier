@@ -1,172 +1,85 @@
 package com.lst.lscourier.activity;
 
-import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.lst.lscourier.R;
-import com.lst.lscourier.adapter.MyTabAdapter;
 import com.lst.lscourier.bean.OrderEntry;
-import com.lst.lscourier.fragment.OrderDetailsFragment;
-import com.lst.lscourier.fragment.OrderProgressFragment;
-
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
  * 订单详情
  */
 
-public class OrderDetailActivity extends FragmentActivity implements View.OnClickListener {
-    private TabLayout tableLayout;
-    private ViewPager viewPager;
-    private FragmentManager fragmentManager;
-    private List<String> list_title;
-    private List<Fragment> fragments;
-    private MyTabAdapter tabAdapter;
+public class OrderDetailActivity extends FragmentActivity {
     private OrderEntry orderEntry;
-    private Button order_information_return;
-    private Button another_order;
-    private LinearLayout complain;
+    private TextView order_details_order_status, order_details_order_number, order_details_order_price, order_details_order_taking_address,
+            order_details_service_address, order_total_price, order_details_order_distance, order_details_order_weight, order_taking_address_user, order_taking_address_user_phone_number, service_address_user, service_address_user_phone_number, order_taking_time, item_information, remark_information, payment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.order_information);
-
+        setContentView(R.layout.order_details);
+        initTitle();
         initView();
-
-        order_information_return = (Button) findViewById(R.id.order_information_return);
-        another_order = (Button) findViewById(R.id.another_order);
-        complain = (LinearLayout) findViewById(R.id.complain);
-        order_information_return.setOnClickListener(this);
-        another_order.setOnClickListener(this);
-        complain.setOnClickListener(this);
+        initData();
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.order_information_return:
-                this.finish();
-                break;
-            case R.id.complain:
-                Intent complainIntent = new Intent();
-//                complainIntent.setClass(this, AnonymousComplaintActivity.class);
-                startActivity(complainIntent);
-                break;
-            case R.id.another_order:
-                Intent intent = new Intent(OrderDetailActivity.this, MainActivity.class);
-                intent.putExtra("OrderBean", orderEntry);
-                startActivity(intent);
-                finish();
-                break;
-        }
+    private void initTitle() {
+        ImageView title_back = (ImageView) findViewById(R.id.title_back);
+        TextView title_text = (TextView) findViewById(R.id.title_text);
+        title_text.setText("订单详情");
+        title_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                OrderDetailActivity.this.finish();
+            }
+        });
     }
 
     private void initView() {
-        tableLayout = (TabLayout) findViewById(R.id.tab_order_information_title);
-        viewPager = (ViewPager) findViewById(R.id.viewPager_order_information);
-
-        fragmentManager = getSupportFragmentManager();
-        viewPager.setOffscreenPageLimit(1);
-
-        fragmentManager = getSupportFragmentManager();
-        viewPager.setOffscreenPageLimit(1);
-
-        list_title = new ArrayList<>();
-        list_title.add("订单进度");
-        list_title.add("订单详情");
-        fragments = new ArrayList<>();
-
         //TODO 获取数据
         orderEntry = (OrderEntry) getIntent().getExtras().get("data");
-
-        OrderProgressFragment orderProgressFragment = new OrderProgressFragment();
-        OrderDetailsFragment orderDetailsFragment = new OrderDetailsFragment();
-
-        //TODO 传递数据给fragment
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("data", orderEntry);
-        orderDetailsFragment.setArguments(bundle);
-        orderProgressFragment.setArguments(bundle);
-
-        fragments.add(orderProgressFragment);
-        fragments.add(orderDetailsFragment);
-//        orderDetailsFragment.setArguments(data);
-
-        /*
-        //不传递数据时，添加fragment的简单写法
-        fragments.add(new OrderProgressFragment());
-        fragments.add(new OrderDetailsFragment());*/
-
-        //设置TabLayout的模式
-        tableLayout.setTabMode(TabLayout.MODE_FIXED);
-        //为TabLayout添加tab名称
-        tableLayout.addTab(tableLayout.newTab().setText(list_title.get(0)));
-        tableLayout.addTab(tableLayout.newTab().setText(list_title.get(1)));
-
-        //TODO 调整tab下划线长度
-        tableLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                setUnderline(tableLayout, 40, 40);
-            }
-        });
-        tabAdapter = new MyTabAdapter(fragmentManager, list_title, fragments);
-        viewPager.setAdapter(tabAdapter);
-        tableLayout.setupWithViewPager(viewPager);
-
-        tabAdapter = new MyTabAdapter(fragmentManager, list_title, fragments);
-        viewPager.setAdapter(tabAdapter);
-        tableLayout.setupWithViewPager(viewPager);
+        order_details_order_status = (TextView) findViewById(R.id.order_details_order_status);
+        order_details_order_number = (TextView) findViewById(R.id.order_details_order_number);
+        order_details_order_price = (TextView) findViewById(R.id.order_details_order_price);
+        order_details_order_distance = (TextView) findViewById(R.id.order_details_order_distance);
+        order_details_order_taking_address = (TextView) findViewById(R.id.order_details_order_taking_address);
+        order_details_service_address = (TextView) findViewById(R.id.order_details_service_address);
+        order_total_price = (TextView) findViewById(R.id.order_total_price);
+        order_details_order_weight = (TextView) findViewById(R.id.order_details_order_weight);
+        order_taking_address_user = (TextView) findViewById(R.id.order_taking_address_user);
+        order_taking_address_user_phone_number = (TextView) findViewById(R.id.order_taking_address_user_phone_number);
+        service_address_user = (TextView) findViewById(R.id.service_address_user);
+        service_address_user_phone_number = (TextView) findViewById(R.id.service_address_user_phone_number);
+        order_taking_time = (TextView) findViewById(R.id.order_taking_time);
+        item_information = (TextView) findViewById(R.id.item_information);
+        remark_information = (TextView) findViewById(R.id.remark_information);
+        payment = (TextView) findViewById(R.id.payment);
 
     }
 
-    //TODO 调整tab下划线长度
-    private void setUnderline(TabLayout tabs, int leftDip, int rightDip) {
-        Class<?> tabLayout = tabs.getClass();
-        Field tabStrip = null;
-        try {
-            tabStrip = tabLayout.getDeclaredField("mTabStrip");
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        }
-
-        tabStrip.setAccessible(true);
-        LinearLayout llTab = null;
-        try {
-            llTab = (LinearLayout) tabStrip.get(tabs);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
-        int left = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, leftDip,
-                Resources.getSystem().getDisplayMetrics());
-        int right = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, rightDip,
-                Resources.getSystem().getDisplayMetrics());
-
-        for (int i = 0; i < llTab.getChildCount(); i++) {
-            View child = llTab.getChildAt(i);
-            child.setPadding(0, 0, 0, 0);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1);
-            params.leftMargin = left;
-            params.rightMargin = right;
-            child.setLayoutParams(params);
-            child.invalidate();
-        }
+    private void initData() {
+        order_details_order_status.setText(orderEntry.getOrder_status());
+        order_details_order_number.setText(orderEntry.getOrder_id());
+        order_details_order_price.setText(orderEntry.getMoney());
+        order_details_order_taking_address.setText(orderEntry.getStart_address() + orderEntry.getStart_xxaddress());
+        order_details_service_address.setText(orderEntry.getExit_address() + orderEntry.getExit_xxaddress());
+        order_total_price.setText(orderEntry.getMoney());
+        order_details_order_distance.setText(orderEntry.getDistance());
+        order_details_order_weight.setText(orderEntry.getOrder_weight());
+        order_taking_address_user.setText(orderEntry.getStart_name());
+        order_taking_address_user_phone_number.setText(orderEntry.getStart_phone());
+        service_address_user.setText(orderEntry.getExit_name());
+        service_address_user_phone_number.setText(orderEntry.getExit_phone());
+        order_taking_time.setText(orderEntry.getStart_time());
+        item_information.setText(orderEntry.getOrder_type());
+        remark_information.setText(orderEntry.getMessage());
+        payment.setText(orderEntry.getPay_type());
     }
 }

@@ -103,10 +103,13 @@
         <activity
             android:name=".activity.PersonalCenterActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ScrambleActivity"
+            android:screenOrientation="portrait" />
         <!-- 设置高德key -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="2230e3035c1fe7e8805cbe6852489e26" />
+            android:value="8613aa0d695e35b11ac7f32b3408794d" />
         <!-- 定位需要的服务 -->
         <service android:name="com.amap.api.location.APSService"></service>
     </application>

@@ -19,6 +19,7 @@
     <color name="tomato">#FF6347</color>
     <!--浅蓝-->
     <color name="mBlue_l">#2790fd</color>
+    <color name="mGreen">#27a82d</color>
     <color name="light_gray">#E6E7E7</color>
     <color name="black">#000000</color>
     <color name="transparent">#00000000</color>

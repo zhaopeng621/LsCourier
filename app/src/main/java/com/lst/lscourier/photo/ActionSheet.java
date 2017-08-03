@@ -63,7 +63,7 @@ public class ActionSheet extends Fragment implements OnClickListener {
 		FragmentTransaction ft = manager.beginTransaction();
 		ft.add(this, tag);
 		ft.addToBackStack(null);
-		ft.commit();
+		ft.commitAllowingStateLoss();
 	}
 
 	public void dismiss() {
@@ -74,7 +74,7 @@ public class ActionSheet extends Fragment implements OnClickListener {
 		getFragmentManager().popBackStack();
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
 		ft.remove(this);
-		ft.commit();
+		ft.commitAllowingStateLoss();
 	}
 
 	@Override

@@ -1,13 +1,21 @@
 package com.lst.lscourier.activity;
 
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -46,7 +54,13 @@ public class PersonalCenterActivity extends FragmentActivity implements View.OnC
     private Bitmap myBitmap;
     private File file;
     private UserBean userBean;
-
+    private static final int PERMISSION_REQUEST_CODE = 0;        // 系统权限返回码
+    static final String[] PERMISSIONS = new String[]{
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS,
+    };
+    private static final String PACKAGE_URL_SCHEME = "package:";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +68,7 @@ public class PersonalCenterActivity extends FragmentActivity implements View.OnC
         setContentView(R.layout.activity_personal);
         initTitleData();
         initView();
-//        getUserDetail();
+        getUserDetail();
     }
 
     public void initTitleData() {
@@ -90,7 +104,17 @@ public class PersonalCenterActivity extends FragmentActivity implements View.OnC
                 startActivity(webIntent);
                 break;
             case R.id.my_face:
-                PictureUtil.doPickPhotoAction(PersonalCenterActivity.this);
+                if (Build.VERSION.SDK_INT >= 23) {
+                    if (ContextCompat.checkSelfPermission(PersonalCenterActivity.this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(PersonalCenterActivity.this, PERMISSIONS, PERMISSION_REQUEST_CODE);
+                        return;
+                    } else {
+                        PictureUtil.doPickPhotoAction(PersonalCenterActivity.this);
+                    }
+                } else {
+                    PictureUtil.doPickPhotoAction(PersonalCenterActivity.this);
+                }
+
                 break;
             default:
                 break;
@@ -138,7 +162,9 @@ public class PersonalCenterActivity extends FragmentActivity implements View.OnC
                     myBitmap = (Bitmap) bundle.get("data");
                     Bitmap bitImage = PictureUtil.comp(myBitmap);
                     String fileName = PictureUtil.getCharacterAndNumber();
-                    file = new File(PictureUtil.PHOTO_DIR, fileName + ".png");
+                    if (file == null) {
+                        file = new File(PictureUtil.PHOTO_DIR, fileName + ".png");
+                    }
                     PictureUtil.saveMyBitmap(bitImage, file);
                     my_face.setImageBitmap(bitImage);
                     //上传图片
@@ -160,6 +186,7 @@ public class PersonalCenterActivity extends FragmentActivity implements View.OnC
 
     public void getUserDetail() {
         userBean = (UserBean) SharePrefUtil.getObj(PersonalCenterActivity.this, "User");
+        Log.d("userBean=======", userBean.toString());
         String text = userBean.getPhone();
         if (!TextUtils.isEmpty(text) && text.length() > 6) {
             StringBuilder sb = new StringBuilder();
@@ -178,8 +205,8 @@ public class PersonalCenterActivity extends FragmentActivity implements View.OnC
             ImageCacheManager.loadImage(userBean.getPic(), my_face, ImageCacheManager.getBitmapFromRes(PersonalCenterActivity.this, R.mipmap.default_user_head),
                     ImageCacheManager.getBitmapFromRes(PersonalCenterActivity.this, R.mipmap.default_user_head));
         }
-        tv_grade.setText("等级:LV"+userBean.getLevel());
-        tv_credit.setText("信誉分:"+Float.valueOf(userBean.getIntegral()));
+        tv_grade.setText("等级:LV" + userBean.getLevel());
+        tv_credit.setText("信誉分:" + Float.valueOf(userBean.getIntegral()));
     }
 
     private class MyErrorListener implements Response.ErrorListener {
@@ -197,6 +224,7 @@ public class PersonalCenterActivity extends FragmentActivity implements View.OnC
                 JSONObject object = new JSONObject(s);
                 if (object.getString("code").equals("200")) {
                     userBean.setPic(object.getString("url"));
+                    SharePrefUtil.saveObj(PersonalCenterActivity.this, "User", userBean);
                     //上传成功后传回
                     Bitmap bit = ((BitmapDrawable) my_face.getDrawable())
                             .getBitmap();
@@ -209,5 +237,59 @@ public class PersonalCenterActivity extends FragmentActivity implements View.OnC
                 e.printStackTrace();
             }
         }
+    }
+    /**
+     * 用户权限处理,
+     * 如果全部获取, 则直接过.
+     * 如果权限缺失, 则提示Dialog.
+     *
+     * @param requestCode  请求码
+     * @param permissions  权限
+     * @param grantResults 结果
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    PictureUtil.doPickPhotoAction(PersonalCenterActivity.this);
+                } else {
+                    showPermissionDialog();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    /**
+     * 提示对话框
+     */
+    private void showPermissionDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(PersonalCenterActivity.this);
+        builder.setTitle("帮助");
+        builder.setMessage("当前应用缺少必要权限。请点击\"设置\"-打开所需权限。");
+        // 拒绝, 退出应用
+        builder.setNegativeButton("退出", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                PersonalCenterActivity.this.finish();
+            }
+        });
+        builder.setPositiveButton("设置", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startAppSettings();
+            }
+        });
+        builder.setCancelable(false);
+        builder.show();
+    }
+
+    // 启动应用的设置
+    private void startAppSettings() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.setData(Uri.parse(PACKAGE_URL_SCHEME + PersonalCenterActivity.this.getPackageName()));
+        startActivity(intent);
     }
 }

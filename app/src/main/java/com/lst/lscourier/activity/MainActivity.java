@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity
         user_face.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, PersonalCenterActivity.class);
+                Intent intent = new Intent(MainActivity.this, MySendFlashActivity.class);
                 startActivityForResult(intent, 11);
             }
         });

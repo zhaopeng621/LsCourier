@@ -20,12 +20,18 @@
     <!--浅蓝-->
     <color name="mBlue_l">#2790fd</color>
     <color name="mGreen">#27a82d</color>
-    <color name="light_gray">#E6E7E7</color>
-    <color name="black">#000000</color>
-    <color name="transparent">#00000000</color>
-    <color name="white">#FFFFFF</color>
     <color name="light_blue">#1786F3</color>
     <color name="middle_gray">#847D7D</color>
     <color name="wine">#B61C12</color>
     <color name="c1">#0ACCAC</color>
+    <color name="light_gray">#E6E7E7</color>
+    <color name="middle_blue">#0CA2E2</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="orange">#FDBA4F</color>
+    <color name="second_gray">#BCBCBC</color>
+    <color name="transparent">#00000000</color>
+    <color name="line_color">#aaaaaa</color>
+    <color name="defaultDarkGray">#808080</color>
+    <color name="halftransparent">#aa000000</color>
 </resources>

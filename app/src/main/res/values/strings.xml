@@ -2,10 +2,77 @@
     <string name="app_name">龙商闪送员</string>
     <string name="confirm">确定</string>
 
+    <string name="login">登录</string>
+    <string name="login_2">登 录</string>
+
+    <string name="input_phone_number">输入手机号码</string>
+    <string name="please_input_phone_number">请输入手机号</string>
+    <string name="password">密码</string>
+    <string name="input_password">输入密码</string>
+
+    <string name="click_login">点击“登录”按钮，即表示您同意</string>
+    <string name="flash_operator_service_protocol">《闪送员服务协议》</string>
+    <string name="present_device_number">当前设备号：862033036570321</string>
+    <string name="flash_operator_enroll">闪送员报名</string>
+    <string name="please_click">如果您还不是闪送员，请点击</string>
+    <string name="send_identifying_code">发送验证码</string>
+    <string name="please_input_your_identifying_code">请输入你的验证码</string>
+    <string name="login_password">登录密码</string>
+    <string name="confirm_login_password">确认登录密码</string>
+    <string name="invite_code">邀请码（非必填）</string>
+    <string name="submit">提 交</string>
+    <string name="verify_cell_phone">验证手机</string>
+
+
+    <string name="identification_photo">白底免冠证件照</string>
+
+    <string name="upload_id_photos">上传身份证照片：</string>
+    <string name="upload_front">上传正面</string>
+    <string name="upload_back">上传背面</string>
+    <string name="send_flash">闪送</string>
+    <string name="input_id_number">输入身份证号码</string>
+    <string name="input_new_password">输入新密码</string>
+    <string name="reenter_the_new_password">重新输入新密码</string>
+    <string name="id_number">身份证号：</string>
+    <string name="data_filling">资料填写</string>
+    <string name="next_step">下一步</string>
+    <string name="educational_background">学历：</string>
+    <string name="profession">职业：</string>
+    <string name="emergency_contact">紧急联系人：</string>
+    <string name="contact_phone">联系人电话：</string>
+    <string name="the_detailed_address">现详细住址：</string>
+    <string name="trip_mode">出行方式：</string>
+    <string name="bicycle">自行车</string>
+    <string name="electrombile">电动车</string>
+    <string name="car">汽车</string>
+    <string name="subway">地铁</string>
+    <string name="bus">公交</string>
+    <string name="motorcycle">摩托车</string>
+
+
+    <string name="postgraduate">研究生</string>
+    <string name="undergraduate">本科</string>
+    <string name="junior_college">专科</string>
+    <string name="senior_high_school">高中</string>
+    <string name="junior_high_school">初中</string>
+    <string name="primary_school">小学</string>
+
+
+    <string name="user_name">用户姓名</string>
+    <string name="my_send_flash">我的闪送</string>
+    <string name="general_income">总收入</string>
+    <string name="monthly_income">本月收入</string>
+    <string name="yesterday_income">昨日收入</string>
+    <string name="my_order">我的订单</string>
+    <string name="single">单</string>
+    <string name="cash_account">现金账户</string>
+    <string name="dollar">元</string>
+    <string name="rewards_and_punishment_record">奖惩记录</string>
+    <string name="promotion_record">推广记录</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="my_order">我的订单</string>
 
     <string name="my_setting">设置中心</string>
     <string name="my_genre_choose">请选择物品类型</string>
@@ -151,19 +218,6 @@
     <string name="payment_online">在线支付</string>
     <string name="order_total_price">订单总价：</string>
 
-    <string name="anonymous_complaint">匿名投诉</string>
-    <string name="complaint_content">投诉内容：</string>
-    <string name="please_select_complaint_object">请选择投诉对象</string>
-    <string name="custom_service">客服</string>
-    <string name="system_problem">系统问题</string>
-    <string name="please_select_complaint_reason">请选则投诉原因</string>
-    <string name="please_write_complaint_reason">请填写投诉原因：</string>
-    <string name="will_anonymous_complaint">将匿名投诉（120字以内）</string>
-    <string name="either_need_custom_service_call_back">是否需要客服回电：</string>
-    <string name="yes">是</string>
-    <string name="no">否</string>
-    <string name="anonymous_submit_complaint">匿名提交投诉</string>
-    <string name="please_describe_the_problems_you_have_encountered">请输入你要反馈的具体内容</string>
 
     <string name="generic_server_down">连接超时</string>
     <string name="no_internet">网络异常</string>
@@ -177,5 +231,5 @@
     <string name="go_scramble">去抢单</string>
     <string name="today_order">今日单</string>
     <string name="refresh">刷新</string>
-
+    <string name="please_describe_the_problems_you_have_encountered">请输入你要反馈的具体内容</string>
 </resources>

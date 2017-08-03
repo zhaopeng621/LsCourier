@@ -106,6 +106,8 @@
         <activity
             android:name=".activity.ScrambleActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.DataFillingActivity"/>
+        <activity android:name=".activity.MySendFlashActivity"/>
         <!-- 设置高德key -->
         <meta-data
             android:name="com.amap.api.v2.apikey"

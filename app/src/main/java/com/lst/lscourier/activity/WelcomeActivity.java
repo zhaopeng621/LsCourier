@@ -303,8 +303,8 @@ public class WelcomeActivity extends Activity implements
 
     private void enterHome() {
         Intent intent = new Intent();
-        intent.setClass(WelcomeActivity.this, MainActivity.class);
-//        intent.setClass(WelcomeActivity.this, LoginActivity.class);
+//        intent.setClass(WelcomeActivity.this, MainActivity.class);
+        intent.setClass(WelcomeActivity.this, LoginActivity.class);
         startActivity(intent);
         WelcomeActivity.this.finish();
     }

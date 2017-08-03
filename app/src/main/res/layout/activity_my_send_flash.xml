@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_gray"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/head_portrait"
+            android:layout_width="80dp"
+            android:layout_height="80dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/user_name"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/linear_layout_border"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/general_income"
+                android:textColor="@color/bg_Gray_light"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="@string/zero"
+                android:textColor="@color/middle_blue"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/bg_Gray_light" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/monthly_income"
+                android:textColor="@color/bg_Gray_light"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="@string/zero"
+                android:textColor="@color/middle_blue"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/bg_Gray_light" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/yesterday_income"
+                android:textColor="@color/bg_Gray_light"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="@string/zero"
+                android:textColor="@color/middle_blue"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/my_order_ll"
+        style="@style/MyOrder_ll"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            style="@style/MyOrder_tv_my_order"
+            android:text="@string/my_order" />
+
+        <TextView
+            style="@style/MyOrder_tv_order_number"
+            android:text="@string/zero" />
+
+        <TextView
+            style="@style/MyOrder_tv_single"
+            android:text="@string/single" />
+
+        <ImageView style="@style/MyOrder_iv" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/cash_account_ll"
+        style="@style/MyOrder_ll"
+        android:layout_marginTop="-1dp">
+
+        <TextView
+            style="@style/MyOrder_tv_my_order"
+            android:text="@string/cash_account" />
+
+        <TextView
+            style="@style/MyOrder_tv_order_number"
+            android:text="@string/zero" />
+
+        <TextView
+            style="@style/MyOrder_tv_single"
+            android:text="@string/dollar" />
+
+        <ImageView style="@style/MyOrder_iv" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rewards_and_punishment_record_ll"
+        style="@style/MyOrder_ll"
+        android:layout_marginTop="-1dp">
+
+        <TextView
+            style="@style/MyOrder_tv_my_order"
+            android:text="@string/rewards_and_punishment_record" />
+
+        <ImageView style="@style/MyOrder_iv" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/promotion_record_ll"
+        style="@style/MyOrder_ll"
+        android:layout_marginTop="-1dp">
+
+        <TextView
+            style="@style/MyOrder_tv_my_order"
+            android:text="@string/promotion_record" />
+
+        <ImageView style="@style/MyOrder_iv" />
+    </LinearLayout>
+</LinearLayout>

@@ -35,4 +35,51 @@
     <style name="TabLayoutTextStyle">
         <item name="android:textSize">16sp</item>
     </style>
+    <style name="EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:background">@drawable/login_edit</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/middle_gray</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <style name="MyOrder_ll">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">@drawable/linear_layout_border</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    <style name="MyOrder_tv_my_order">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="MyOrder_tv_order_number">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:text">@string/zero</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="MyOrder_tv_single">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="MyOrder_iv">
+        <item name="android:layout_width">12dp</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:background">@mipmap/right_img</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+    </style>
 </resources>

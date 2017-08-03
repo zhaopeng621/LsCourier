@@ -1,6 +1,7 @@
 package com.lst.lscourier.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -54,7 +55,8 @@ public class RegistActivity extends Activity implements View.OnClickListener {
 
                     break;
                 case 1:
-                    finish();
+                    Intent intent =new Intent().setClass(RegistActivity.this,DataFillingActivity.class);
+                    startActivity(intent);
                     break;
                 default:
                     break;
@@ -132,6 +134,9 @@ public class RegistActivity extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bn_regist:
+                Intent intent =new Intent().setClass(RegistActivity.this,DataFillingActivity.class);
+                startActivity(intent);
+
                 password = et_password.getText().toString().trim();
                 username = et_username.getText().toString().trim();
                 code = et_code.getText().toString().trim();

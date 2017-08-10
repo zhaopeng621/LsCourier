@@ -36,10 +36,14 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <!-- 3.2.0版本增加-->
     <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
     <application
         android:name=".app.App"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/app"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -63,8 +67,7 @@
         <!-- MainActivity必须加them-->
         <activity
             android:name=".activity.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".activity.WebActivity"
@@ -92,28 +95,37 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.SettingActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activity.AboutMeActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.UserFeedbackActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.PersonalCenterActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activity.ScrambleActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.DataFillingActivity"/>
-        <activity android:name=".activity.MySendFlashActivity"/>
+        <activity
+            android:name=".activity.TransactionDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.DataFillingActivity" />
+        <activity android:name=".activity.MySendFlashActivity" />
+        <activity android:name=".activity.WithdrawActivity" />
+        <activity android:name=".activity.WithdrawResultActivity" />
         <!-- 设置高德key -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="8613aa0d695e35b11ac7f32b3408794d" />
         <!-- 定位需要的服务 -->
         <service android:name="com.amap.api.location.APSService"></service>
+        <!-- 解决6.0权限问题 -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.lst.lscourier.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

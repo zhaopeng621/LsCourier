@@ -17,8 +17,11 @@ import com.lst.lscourier.bean.OrderEntry;
 
 public class OrderDetailActivity extends FragmentActivity {
     private OrderEntry orderEntry;
-    private TextView order_details_order_status, order_details_order_number, order_details_order_price, order_details_order_taking_address,
-            order_details_service_address, order_total_price, order_details_order_distance, order_details_order_weight, order_taking_address_user, order_taking_address_user_phone_number, service_address_user, service_address_user_phone_number, order_taking_time, item_information, remark_information, payment;
+    private TextView order_details_order_status, order_details_order_number, order_details_order_price,
+            order_details_order_taking_address, order_details_service_address, order_total_price,
+            order_details_order_distance, order_details_order_weight, order_taking_address_user,
+            order_taking_address_user_phone_number, service_address_user, service_address_user_phone_number,
+            order_taking_time, item_information, remark_information, payment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -38,7 +38,6 @@ public class MyWalletActivity extends Activity implements View.OnClickListener {
 
     private Button wallet_return;
     private Button instant_recharge;
-    private RelativeLayout apply_for_invoice;
     private RelativeLayout transaction_details;
     private RelativeLayout price_indication;
     private TextView tv_balance;
@@ -53,13 +52,13 @@ public class MyWalletActivity extends Activity implements View.OnClickListener {
         tv_balance = (TextView) findViewById(R.id.tv_balance);
         wallet_return = (Button) findViewById(R.id.wallet_return);
         instant_recharge = (Button) findViewById(R.id.instant_recharge);
-        apply_for_invoice = (RelativeLayout) findViewById(R.id.apply_for_invoice);
+
         transaction_details = (RelativeLayout) findViewById(R.id.transaction_details);
         price_indication = (RelativeLayout) findViewById(R.id.price_indication);
 
         wallet_return.setOnClickListener(this);
         instant_recharge.setOnClickListener(this);
-        apply_for_invoice.setOnClickListener(this);
+
         transaction_details.setOnClickListener(this);
         price_indication.setOnClickListener(this);
         getdata();
@@ -72,25 +71,20 @@ public class MyWalletActivity extends Activity implements View.OnClickListener {
                 this.finish();
                 break;
             case R.id.instant_recharge:
-//                Intent instantRecharge = new Intent();
-//                instantRecharge.setClass(this, RechargeActivity.class);
-//                startActivity(instantRecharge);
-                break;
-            case R.id.apply_for_invoice:
-//                Intent myInvoice = new Intent();
-//                myInvoice.setClass(MyWalletActivity.this, MyInvoiceActivity.class);
-//                startActivity(myInvoice);
+                Intent instantRecharge = new Intent();
+                instantRecharge.setClass(this, WithdrawActivity.class);
+                startActivity(instantRecharge);
                 break;
             case R.id.transaction_details:
-//                Intent transactionDetails = new Intent();
-//                transactionDetails.setClass(this, TransactionDetailsActivity.class);
-//                startActivity(transactionDetails);
+                Intent transactionDetails = new Intent();
+                transactionDetails.setClass(this, TransactionDetailsActivity.class);
+                startActivity(transactionDetails);
                 break;
             case R.id.price_indication:
                 Intent priceInstruction = new Intent();
                 priceInstruction.setClass(this, WebActivity.class);
                 priceInstruction.putExtra("weburl", "file:///android_asset/price.htm");
-                priceInstruction.putExtra("title", " 价格说明");
+                priceInstruction.putExtra("title", " 提现说明");
                 startActivity(priceInstruction);
                 break;
         }

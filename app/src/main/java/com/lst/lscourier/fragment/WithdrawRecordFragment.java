@@ -1,6 +1,7 @@
 package com.lst.lscourier.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
@@ -18,7 +19,6 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.lst.lscourier.R;
 import com.lst.lscourier.app.App;
 import com.lst.lscourier.parmas.MyJsonObjectRequest;
-import com.lst.lscourier.parmas.ParmasUrl;
 import com.lst.lscourier.utils.SharePrefUtil;
 import com.lst.lscourier.utils.VolleyErrorHelper;
 
@@ -28,42 +28,44 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+
 /**
- * A simple {@link Fragment} subclass.
+ * 提现记录
  */
-public class ConsumerDetailsFragment extends Fragment implements XRecyclerView.LoadingListener {
+
+public class WithdrawRecordFragment extends Fragment implements XRecyclerView.LoadingListener {
     private View view;
     private TextView tv_null;
     private XRecyclerView recyclerview;
-
-    public ConsumerDetailsFragment() {
+    public WithdrawRecordFragment(){
 
     }
 
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,ViewGroup container,
                              Bundle savedInstanceState) {
         if (view == null) {
-            view =   inflater.inflate(R.layout.consumer_details_fragment, container, false);
+            view =     inflater.inflate(R.layout.withdraw_record_fragment, container, false);
         }
 //        initView(view);
 //        getDatas();
         return view;
     }
-
-    private void initView(View v) {
-        tv_null = (TextView) v.findViewById(R.id.tv_consumer_details_no);
-        recyclerview = (XRecyclerView) v.findViewById(R.id.recyclerview);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerview.setLayoutManager(layoutManager);
-        recyclerview.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
-        recyclerview.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
-        recyclerview.setLoadingListener(this);
-    }
+ private void initView(View view) {
+    tv_null = (TextView) view.findViewById(R.id.tv_recharge_record_no);
+    recyclerview = (XRecyclerView) view.findViewById(R.id.recyclerview);
+    LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+    layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+    recyclerview.setLayoutManager(layoutManager);
+    recyclerview.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+    recyclerview.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
+    recyclerview.setLoadingListener(this);
+}
 
     public void getDatas() {
-        String url = ParmasUrl.complaintAdd;
+//        String url = ParmasUrl.complaintAdd;
+        String url ="";
         Map<String, String> map = new HashMap<>();
         map.put("user_id", SharePrefUtil.getString(getActivity(), "userid", ""));
         MyJsonObjectRequest myJsonObjectRequest = new MyJsonObjectRequest(Request.Method.POST, url, map, new Response.Listener<JSONObject>() {
@@ -115,3 +117,4 @@ public class ConsumerDetailsFragment extends Fragment implements XRecyclerView.L
     }
 
 }
+

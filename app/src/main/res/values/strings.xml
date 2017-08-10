@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">龙商闪送员</string>
     <string name="confirm">确定</string>
+    <string name="exit">退出登录</string>
 
     <string name="login">登录</string>
     <string name="login_2">登 录</string>
@@ -12,7 +13,7 @@
 
     <string name="click_login">点击“登录”按钮，即表示您同意</string>
     <string name="flash_operator_service_protocol">《闪送员服务协议》</string>
-    <string name="present_device_number">当前设备号：862033036570321</string>
+    <string name="present_device_number">当前设备号：</string>
     <string name="flash_operator_enroll">闪送员报名</string>
     <string name="please_click">如果您还不是闪送员，请点击</string>
     <string name="send_identifying_code">发送验证码</string>
@@ -30,6 +31,12 @@
     <string name="upload_front">上传正面</string>
     <string name="upload_back">上传背面</string>
     <string name="send_flash">闪送</string>
+    <string name="true_name">真实姓名:</string>
+    <string name="input_true_name">请输入真实姓名</string>
+    <string name="bank_card">银行卡号:</string>
+    <string name="input_bank_card">请输入银行卡号</string>
+    <string name="withdraw_number">提现金额:</string>
+    <string name="input_withdraw_number">请输入提现金额</string>
     <string name="input_id_number">输入身份证号码</string>
     <string name="input_new_password">输入新密码</string>
     <string name="reenter_the_new_password">重新输入新密码</string>
@@ -75,6 +82,7 @@
 
 
     <string name="my_setting">设置中心</string>
+    <string name="about_me">关于我们</string>
     <string name="my_genre_choose">请选择物品类型</string>
     <string name="my_genre_name">请输入物品名称</string>
     <string name="my_genre_postscript">备注信息:</string>
@@ -127,7 +135,7 @@
     <string name="my_wallet">我的钱包</string>
     <string name="my_balance">我的余额（元）</string>
     <string name="zero">0</string>
-    <string name="instant_recharge">立即充值</string>
+    <string name="instant_recharge">立即提现</string>
     <string name="recharge">充值</string>
     <string name="phone_number">手机号</string>
     <string name="edit_digits">0123456789</string>
@@ -151,9 +159,9 @@
     <string name="yuan">元</string>
     <string name="transaction_details">交易明细</string>
     <string name="price_indication">价格说明</string>
-    <string name="consumer_details_no">你还没有消费记录!</string>
-    <string name="recharge_record_no">你还没有充值记录!</string>
-    <string name="refund_record_no">你还没有退款记录!</string>
+    <string name="withdraw_indication">提现说明</string>
+    <string name="consumer_details_no">你还没有收入记录!</string>
+    <string name="recharge_record_no">你还没有提现记录!</string>
 
 
     <string name="my_invoice">我的发票</string>

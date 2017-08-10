@@ -156,7 +156,7 @@ public class WelcomeActivity extends Activity implements
                 showSettingDialog();
             } else {
                 //            checkUpdate();
-                if (week.equals("星期一")){
+                if (week.equals("星期一")) {
                     getImgs();
                     return;
                 }
@@ -303,8 +303,11 @@ public class WelcomeActivity extends Activity implements
 
     private void enterHome() {
         Intent intent = new Intent();
-//        intent.setClass(WelcomeActivity.this, MainActivity.class);
-        intent.setClass(WelcomeActivity.this, LoginActivity.class);
+        if (SharePrefUtil.getBoolean(WelcomeActivity.this, "isLogin", false)) {
+            intent.setClass(WelcomeActivity.this, MainActivity.class);
+        } else {
+            intent.setClass(WelcomeActivity.this, LoginActivity.class);
+        }
         startActivity(intent);
         WelcomeActivity.this.finish();
     }
@@ -394,7 +397,7 @@ public class WelcomeActivity extends Activity implements
         viewList = new ArrayList<View>();
         // 获取一个Layout参数，设置为全屏
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-               this.getWindowManager().getDefaultDisplay().getWidth(),
+                this.getWindowManager().getDefaultDisplay().getWidth(),
                 this.getWindowManager().getDefaultDisplay().getHeight());
 
         // 循环创建View并加入到集合中
@@ -405,10 +408,10 @@ public class WelcomeActivity extends Activity implements
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             imageView.setLayoutParams(params);
             if (!isNet && SharePrefUtil.getBoolean(WelcomeActivity.this, "isFirst", true)) {
-                imageView.setBackgroundResource(R.mipmap.ic_launcher);
+                imageView.setBackgroundResource(R.mipmap.one);
             } else {
-                ImageCacheManager.loadImage(imageList.get(i), imageView, ImageCacheManager.getBitmapFromRes(WelcomeActivity.this, R.mipmap.ic_launcher),
-                        ImageCacheManager.getBitmapFromRes(WelcomeActivity.this, R.mipmap.ic_launcher));
+                ImageCacheManager.loadImage(imageList.get(i), imageView, ImageCacheManager.getBitmapFromRes(WelcomeActivity.this, R.mipmap.one),
+                        ImageCacheManager.getBitmapFromRes(WelcomeActivity.this, R.mipmap.one));
             }
             Log.d("--------", imageList.get(i).toString());
             // 将ImageView加入到集合中
@@ -492,13 +495,13 @@ public class WelcomeActivity extends Activity implements
                 Toast.makeText(WelcomeActivity.this, VolleyErrorHelper.getMessage(volleyError, WelcomeActivity.this), Toast.LENGTH_SHORT).show();
             }
         });
-     App.getHttpQueue().add(stringRequest);
+        App.getHttpQueue().add(stringRequest);
     }
 
     public String getWeek() {
-        long time=System.currentTimeMillis();
-        Date date=new Date(time);
-        SimpleDateFormat format=new SimpleDateFormat("EEEE");
+        long time = System.currentTimeMillis();
+        Date date = new Date(time);
+        SimpleDateFormat format = new SimpleDateFormat("EEEE");
         String format1 = format.format(date);
         return format1;
     }

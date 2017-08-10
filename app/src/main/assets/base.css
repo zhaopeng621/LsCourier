@@ -1,0 +1,18 @@
+/* CSS Document */
+body{ margin:0; padding:0;}
+.clear{ clear:both;}
+b{ font-weight: normal;} 
+a{ text-decoration:none;}
+.head{  background:#00d8c9; position:fixed; z-index:1; width:100%;margin:0; padding:0; top:-2px;}
+.head p{ text-align:center; color:#fff; line-height:12px;}
+.head span{position:absolute; left:6px; top:10px;}
+.head span a{ padding:0 6px; color:#fff;}
+.neirong,.neirong1{ width:94%; margin:0 auto; position:relative; z-index:0; top:24px;}
+h4{ text-align:center; font-weight:normal; font-size:18px; position:relative; top:32px;}
+.neirong h5,.neirong1 h5{ margin-top:-24px;}
+.neirong p{ font-size:14px; color:#666; text-indent:2rem;}
+.neirong1 p{ font-size:14px; color:#666;}
+.p1{ margin-top:-12px;}
+.f_rr{ float:right; padding-bottom:10px;}
+.f_r{ position: absolute; right:0; bottom:-40px;}
+.line{ border-bottom:1px solid #CCC; margin:22px 0;}

@@ -1,6 +1,6 @@
 package com.lst.lscourier.utils;
 
-import android.app.Activity;
+import android.content.Context;
 import android.widget.Toast;
 
 /**
@@ -8,7 +8,7 @@ import android.widget.Toast;
  */
 public class ToastUtils {
 
-    public static void showToast(Activity activity ,String msg) {
+    public static void showToast(Context activity , String msg) {
         Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
     }
 }

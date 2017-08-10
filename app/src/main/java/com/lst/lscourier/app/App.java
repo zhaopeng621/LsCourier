@@ -1,10 +1,11 @@
 package com.lst.lscourier.app;
 
-import android.app.ActivityGroup;
+import android.app.Activity;
 import android.app.Application;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.lst.lscourier.utils.ToastUtils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,10 +15,10 @@ import java.util.List;
  */
 @SuppressWarnings("deprecation")
 public class App extends Application {
-	private List<ActivityGroup> activityList = new LinkedList<ActivityGroup>();
+	private List<Activity> activityList = new LinkedList<Activity>();
 	private static App instance;
 	public static RequestQueue queue;
-
+	private long exitTime = 0;
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -38,15 +39,24 @@ public class App extends Application {
 	}
 
 	// 添加Activity到容器中
-	public void addActivity(ActivityGroup activity) {
+	public void addActivity(Activity activity) {
 		activityList.add(activity);
 	}
 
 	public void exit() {
 		// TODO Auto-generated method stub
-		for (ActivityGroup activity : activityList) {
+		for (Activity activity : activityList) {
 			activity.finish();
 		}
+		activityList.clear();
+	}
 
+	public void onBackPressed() {
+		if ((System.currentTimeMillis() - exitTime) > 2000) {
+			ToastUtils.showToast(getApplicationContext(), "再按一次退出程序");
+			exitTime = System.currentTimeMillis();
+		} else {
+			System.exit(0);
+		}
 	}
 }

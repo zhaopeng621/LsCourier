@@ -52,14 +52,14 @@
         <Button
             android:id="@+id/login_button_login"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="45dp"
             android:layout_below="@id/login_edit_password"
             android:layout_marginTop="10dp"
-            android:background="@drawable/button_corner"
+            android:background="@drawable/voucher_center_blue"
             android:gravity="center"
             android:text="@string/login_2"
             android:textColor="@color/white"
-            android:textSize="15sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/login_text_find_password"
@@ -70,7 +70,7 @@
             android:clickable="true"
             android:text="@string/find_password"
             android:textColor="@color/middle_blue"
-            android:textSize="12sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/login_text_click"
@@ -80,7 +80,7 @@
             android:layout_marginTop="10dp"
             android:text="@string/click_login"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/login_text_protocol"
@@ -92,7 +92,7 @@
             android:clickable="true"
             android:text="@string/flash_operator_service_protocol"
             android:textColor="@color/middle_blue"
-            android:textSize="12sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/login_text_device_number"
@@ -102,7 +102,7 @@
             android:layout_marginTop="10dp"
             android:text="@string/present_device_number"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/login_button_flash_operator_enroll"
@@ -115,7 +115,7 @@
             android:gravity="center"
             android:text="@string/flash_operator_enroll"
             android:textColor="@color/white"
-            android:textSize="15sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="match_parent"

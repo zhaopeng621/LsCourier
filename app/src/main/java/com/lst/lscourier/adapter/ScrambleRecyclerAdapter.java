@@ -15,6 +15,7 @@ import com.lst.lscourier.utils.DistanceUtils;
 import com.lst.lscourier.utils.SharePrefUtil;
 import com.lst.lscourier.utils.TimeUtils;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,12 +48,21 @@ public class ScrambleRecyclerAdapter extends XRecyclerView.Adapter<ScrambleRecyc
         holder.tv_my_address.setText(SharePrefUtil.getString(mContext, "MyLocation", ""));
         long time = System.currentTimeMillis();
         String order_time = datas.get(position).getOrder_time();
-        String data = TimeUtils.data(order_time);
-        long aLong = Long.valueOf(data) * 1000;
-        long mTime = aLong - time;
-        Log.e("time", String.valueOf(time));
-        Log.e("Long", String.valueOf(aLong));
-        Log.e("mTime", String.valueOf(mTime));
+        String Mytime = "";
+        if (order_time.length() < 12) {
+            Mytime = "2017-" + order_time;
+        } else {
+            Mytime = order_time;
+        }
+        long mTime = 0;
+        if (!order_time.equals("null")) {
+            String data = TimeUtils.data(Mytime);
+            long aLong = Long.valueOf(data) * 1000;
+            mTime = aLong - time;
+            Log.e("time", String.valueOf(time));
+            Log.e("Long", String.valueOf(aLong));
+            Log.e("mTime", String.valueOf(mTime));
+        }
         if (mTime > 0) {
             long days = mTime / (1000 * 60 * 60 * 24);
             long hours = (mTime - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
@@ -68,11 +78,14 @@ public class ScrambleRecyclerAdapter extends XRecyclerView.Adapter<ScrambleRecyc
         float distance = DistanceUtils.calculateFrom(mContext,
                 datas.get(position).getStart_lat(),
                 datas.get(position).getStart_long());
-        holder.tv_get_distance.setText(String.valueOf(distance));
+        holder.tv_get_distance.setText(String.valueOf(distance) + "Km");
         holder.tv_get_address.setText(datas.get(position).getStart_address());
-        holder.tv_send_distance.setText(datas.get(position).getDistance());
+        holder.tv_send_distance.setText(datas.get(position).getDistance() + "Km");
         holder.tv_send_address.setText(datas.get(position).getExit_address());
-        holder.tv_pay.setText(datas.get(position).getMoney());
+        holder.tv_pay.setText("¥:" + datas.get(position).getMoney());
+        float v = Float.valueOf(datas.get(position).getMoney()) / 5 * 4;
+        float freight = new BigDecimal(v).setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
+        holder.tv_freight.setText("¥:" + freight);
         holder.bt_scramble.setOnClickListener(myClick);
         holder.bt_scramble.setTag(position);
 

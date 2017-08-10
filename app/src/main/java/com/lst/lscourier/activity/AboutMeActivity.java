@@ -38,7 +38,7 @@ public class AboutMeActivity extends CheckPermissionsActivity{
     private void initView() {
         list = (ListView) findViewById(R.id.about_list);
         TextView version = (TextView) findViewById(R.id.version);
-        version.setText("龙商闪送 V："+getVersion());
+        version.setText("龙商闪送员 V："+getVersion());
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this,
                 R.layout.array_list_item,

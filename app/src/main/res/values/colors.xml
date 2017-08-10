@@ -20,6 +20,7 @@
     <!--浅蓝-->
     <color name="mBlue_l">#2790fd</color>
     <color name="mGreen">#27a82d</color>
+    <color name="mGreen_light">#27ee2d</color>
     <color name="light_blue">#1786F3</color>
     <color name="middle_gray">#847D7D</color>
     <color name="wine">#B61C12</color>

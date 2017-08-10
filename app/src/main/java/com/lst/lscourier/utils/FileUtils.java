@@ -11,8 +11,6 @@ import java.io.File;
 
 /**
  * 文件名	：文件操作类
- * 创建日期	：2012-10-15
- * Copyright (c) 2003-2012 北京联龙博通
  */
 public class FileUtils {
     private static String Header_pic_name = "header.jpg";

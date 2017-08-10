@@ -2,10 +2,12 @@ package com.lst.lscourier.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -38,7 +40,7 @@ import java.util.Map;
 public class LoginActivity extends Activity implements View.OnClickListener {
     private EditText login_edit_phone_number, login_edit_password;
     private Button login_button_login, login_button_flash_operator_enroll;
-    private TextView login_text_find_password, login_text_protocol;
+    private TextView login_text_find_password, login_text_protocol, login_text_device_number;
     private Intent intent;
     private String saveUserId;
     private UserBean mUser = new UserBean();
@@ -54,7 +56,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     SharePrefUtil.saveBoolean(LoginActivity.this, "isLogin",
                             true);
                     SharePrefUtil.saveObj(LoginActivity.this, "User", mUser);
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    if (SharePrefUtil.getBoolean(LoginActivity.this, "isDataFilling", false)) {
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    } else {
+                        startActivity(new Intent(LoginActivity.this, DataFillingActivity.class));
+                    }
+                    Log.d("isDataFilling", String.valueOf(SharePrefUtil.getBoolean(LoginActivity.this, "isDataFilling", false)));
+                    finish();
                     break;
                 default:
                     break;
@@ -83,6 +91,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     private void initView() {
+        TelephonyManager tm = (TelephonyManager) getApplication().getSystemService(Context.TELEPHONY_SERVICE);
+        tm.getDeviceId();
+        login_text_device_number = (TextView) findViewById(R.id.login_text_device_number);
+        login_text_device_number.setText("当前设备号:" + tm.getDeviceId());
         login_edit_phone_number = (EditText) findViewById(R.id.login_edit_phone_number);
         login_edit_password = (EditText) findViewById(R.id.login_edit_password);
         login_button_login = (Button) findViewById(R.id.login_button_login);
@@ -155,6 +167,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.login_text_protocol:
+                Intent priceInstruction = new Intent();
+                priceInstruction.setClass(this, WebActivity.class);
+                priceInstruction.putExtra("weburl", "file:///android_asset/protocol.htm");
+                priceInstruction.putExtra("title", " 服务协议");
+                startActivity(priceInstruction);
                 break;
             case R.id.login_button_flash_operator_enroll:
                 intent = new Intent(LoginActivity.this,
@@ -162,7 +179,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 intent.putExtra("type", "0");
                 startActivity(intent);
                 break;
-
         }
     }
 }

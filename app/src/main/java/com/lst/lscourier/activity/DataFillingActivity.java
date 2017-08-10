@@ -25,6 +25,7 @@ import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.lst.lscourier.R;
 import com.lst.lscourier.utils.FileUtils;
 import com.lst.lscourier.utils.GlideCircleTransform;
+import com.lst.lscourier.utils.SharePrefUtil;
 
 
 /**
@@ -88,13 +89,13 @@ public class DataFillingActivity extends Activity implements View.OnClickListene
         electrombile.setOnClickListener(this);
         motorcycle.setOnClickListener(this);
         setChosed(electrombile);
-        Glide.with(this).load("file://"+ FileUtils.makeFile())
-                .error(R.mipmap.ic_launcher)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
-                .crossFade().placeholder(R.mipmap.ic_launcher)
-                .transform(new GlideCircleTransform(this))
-                .into(identification_photo);
+//        Glide.with(this).load("file://"+ FileUtils.makeFile())
+//                .error(R.mipmap.head_tmp)
+//                .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                .skipMemoryCache(true)
+//                .crossFade().placeholder(R.mipmap.head_tmp)
+//                .transform(new GlideCircleTransform(this))
+//                .into(identification_photo);
     }
 
     @Override
@@ -145,8 +146,10 @@ public class DataFillingActivity extends Activity implements View.OnClickListene
             case R.id.upload_back:
                 break;
             case R.id.data_filling_next_step:
-                intent=new Intent().setClass(this,MySendFlashActivity.class);
+                SharePrefUtil.saveBoolean(DataFillingActivity.this,"isDataFilling",true);
+                intent=new Intent().setClass(this,MainActivity.class);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.popwindow_gallery:
                 gallery();
@@ -285,7 +288,7 @@ public class DataFillingActivity extends Activity implements View.OnClickListene
                             .diskCacheStrategy(DiskCacheStrategy.NONE)
                             .skipMemoryCache(true)
                             .crossFade().transform(new GlideCircleTransform(this))
-                            .error(R.mipmap.ic_launcher)
+                            .error(R.mipmap.head_tmp)
                             .into(new GlideDrawableImageViewTarget(identification_photo));
                 } else if (requestCode == 2) {
                     startPhotoZoom(data.getData());

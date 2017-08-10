@@ -52,11 +52,11 @@ public class RegistActivity extends Activity implements View.OnClickListener {
                     String newUsernameCode = (String) msg.obj;
                     SharePrefUtil.saveString(RegistActivity.this, "newUsername", et_username.getText().toString());
                     SharePrefUtil.saveString(RegistActivity.this, "newUsernameCode", newUsernameCode);
-
                     break;
                 case 1:
-                    Intent intent =new Intent().setClass(RegistActivity.this,DataFillingActivity.class);
+                    Intent intent =new Intent().setClass(RegistActivity.this,LoginActivity.class);
                     startActivity(intent);
+                    finish();
                     break;
                 default:
                     break;
@@ -134,9 +134,6 @@ public class RegistActivity extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bn_regist:
-                Intent intent =new Intent().setClass(RegistActivity.this,DataFillingActivity.class);
-                startActivity(intent);
-
                 password = et_password.getText().toString().trim();
                 username = et_username.getText().toString().trim();
                 code = et_code.getText().toString().trim();
@@ -165,7 +162,11 @@ public class RegistActivity extends Activity implements View.OnClickListener {
                 }
                 break;
             case R.id.remark:
-
+                Intent priceInstruction = new Intent();
+                priceInstruction.setClass(this, WebActivity.class);
+                priceInstruction.putExtra("weburl", "file:///android_asset/protocol.htm");
+                priceInstruction.putExtra("title", " 服务协议");
+                startActivity(priceInstruction);
                 break;
             default:
                 break;

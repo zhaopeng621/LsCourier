@@ -14,20 +14,18 @@
 
         <EditText
             android:id="@+id/et_username"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            style="@style/EditText"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
             android:layout_toLeftOf="@+id/getverificationcode"
-            android:background="@drawable/voucher_stroke_gray"
             android:digits="0123456789"
             android:hint="@string/inputphone"
             android:inputType="phone"
             android:maxLength="11"
             android:padding="10dp"
             android:singleLine="true"
-            android:textSize="15dp" />
+            />
 
         <Button
             android:id="@+id/getverificationcode"
@@ -45,32 +43,27 @@
 
     <EditText
         android:id="@+id/et_code"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        style="@style/EditText"
         android:layout_gravity="center_vertical"
         android:layout_margin="10dp"
         android:layout_toLeftOf="@+id/img_code"
-        android:background="@drawable/voucher_stroke_gray"
         android:digits="0123456789"
         android:hint="@string/inputverificationcode"
         android:padding="10dp"
         android:singleLine="true"
-        android:textSize="15dp" />
+       />
 
 
     <EditText
         android:id="@+id/et_password"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
+        style="@style/EditText"
         android:layout_margin="10dp"
-        android:background="@drawable/voucher_stroke_gray"
         android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         android:hint="@string/loginpassword"
         android:inputType="textPassword"
         android:padding="10dp"
         android:singleLine="true"
-        android:textSize="15dp" />
+      />
 
 
     <Button

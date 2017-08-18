@@ -23,7 +23,6 @@ import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
-import com.lst.lscourier.LruCacheUtils.ImageCacheManager;
 import com.lst.lscourier.R;
 import com.lst.lscourier.app.App;
 import com.lst.lscourier.bean.UserBean;
@@ -33,7 +32,6 @@ import com.lst.lscourier.utils.FileUtils;
 import com.lst.lscourier.utils.GlideCircleTransform;
 import com.lst.lscourier.utils.SharePrefUtil;
 import com.lst.lscourier.utils.VolleyErrorHelper;
-import com.lst.lscourier.view.RoundImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,20 +39,23 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+//import com.lst.lscourier.view.RoundImageView;
+
 
 /**
- * Created by lst719 on 2017/7/27.
+ * 我的闪送
  */
 
-public class MySendFlashActivity extends Activity implements View.OnClickListener{
+public class MySendFlashActivity extends Activity implements View.OnClickListener {
 
-    private TextView popwindow_Item_gallery,popwindow_Item_camera, cancle,exit,username;
-    private RoundImageView head_portrait;
+    private TextView popwindow_Item_gallery, popwindow_Item_camera, cancle, exit, username, general_income, monthly_income, yesterday_income, order, cash_account;
+    private ImageView head_portrait;
     private PopupWindow headerpopuWindow;
     private View view;
-    private LinearLayout popwindowBackground,my_order_ll,cash_account_ll,
-            rewards_and_punishment_record_ll,promotion_record_ll;
+    private LinearLayout popwindowBackground, my_order_ll, cash_account_ll,
+            rewards_and_punishment_record_ll, promotion_record_ll;
     private UserBean userBean;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,26 +67,24 @@ public class MySendFlashActivity extends Activity implements View.OnClickListene
     }
 
     private void initView() {
-        username= (TextView) findViewById(R.id.username);
-        exit= (TextView) findViewById(R.id.exit);
-        head_portrait= (RoundImageView) findViewById(R.id.head_portrait);
-        my_order_ll= (LinearLayout) findViewById(R.id.my_order_ll);
-        cash_account_ll= (LinearLayout) findViewById(R.id.cash_account_ll);
-        rewards_and_punishment_record_ll= (LinearLayout) findViewById(R.id.
+        username = (TextView) findViewById(R.id.username);
+        exit = (TextView) findViewById(R.id.exit);
+        general_income = (TextView) findViewById(R.id.general_income);
+        monthly_income = (TextView) findViewById(R.id.monthly_income);
+        yesterday_income = (TextView) findViewById(R.id.yesterday_income);
+        order = (TextView) findViewById(R.id.order);
+        cash_account = (TextView) findViewById(R.id.cash_account);
+        head_portrait = (ImageView) findViewById(R.id.head_portrait);
+        my_order_ll = (LinearLayout) findViewById(R.id.my_order_ll);
+        cash_account_ll = (LinearLayout) findViewById(R.id.cash_account_ll);
+        rewards_and_punishment_record_ll = (LinearLayout) findViewById(R.id.
                 rewards_and_punishment_record_ll);
-        promotion_record_ll= (LinearLayout) findViewById(R.id.promotion_record_ll);
+        promotion_record_ll = (LinearLayout) findViewById(R.id.promotion_record_ll);
         head_portrait.setOnClickListener(this);
         my_order_ll.setOnClickListener(this);
         cash_account_ll.setOnClickListener(this);
         rewards_and_punishment_record_ll.setOnClickListener(this);
         promotion_record_ll.setOnClickListener(this);
-        Glide.with(this).load("file://"+ FileUtils.makeFile())
-                .error(R.mipmap.default_user_head)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
-                .crossFade().placeholder(R.mipmap.default_user_head)
-                .transform(new GlideCircleTransform(this))
-                .into(head_portrait);
         exit.setOnClickListener(this);
     }
 
@@ -100,9 +99,10 @@ public class MySendFlashActivity extends Activity implements View.OnClickListene
             }
         });
     }
+
     public void getUserDetail() {
         userBean = (UserBean) SharePrefUtil.getObj(MySendFlashActivity.this, "User");
-        String text = userBean.getPhone();
+        String text = userBean.getUsername();
         if (!TextUtils.isEmpty(text) && text.length() > 6) {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < text.length(); i++) {
@@ -113,14 +113,24 @@ public class MySendFlashActivity extends Activity implements View.OnClickListene
                     sb.append(c);
                 }
             }
-            username .setText(sb.toString());
+            username.setText(sb.toString());
         }
         if (userBean.getPic() != null && !userBean.getPic().equals("null")) {
-//            ImageLoader.getInstance().displayImage(userBean.getPic(), my_face);
-            ImageCacheManager.loadImage(userBean.getPic(), head_portrait, ImageCacheManager.getBitmapFromRes(MySendFlashActivity.this, R.mipmap.default_user_head),
-                    ImageCacheManager.getBitmapFromRes(MySendFlashActivity.this, R.mipmap.default_user_head));
+//            ImageCacheManager.loadImage(userBean.getPic(), head_portrait, ImageCacheManager.getBitmapFromRes(MySendFlashActivity.this, R.mipmap.default_user_head),
+//                    ImageCacheManager.getBitmapFromRes(MySendFlashActivity.this, R.mipmap.default_user_head));
+            Glide.with(MySendFlashActivity.this).load( userBean.getPic())
+                    .error(R.mipmap.default_user_head)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .skipMemoryCache(true)
+                    .crossFade().placeholder(R.mipmap.default_user_head)
+                    .transform(new GlideCircleTransform(this))
+                    .into(head_portrait);
         }
-      
+        general_income.setText(userBean.getAll_money());
+        monthly_income.setText(userBean.getMonth_money());
+        yesterday_income.setText(userBean.getY_day_money());
+        order.setText(userBean.getOrder());
+        cash_account.setText(userBean.getMoney());
     }
 
     @Override
@@ -128,9 +138,10 @@ public class MySendFlashActivity extends Activity implements View.OnClickListene
         super.onResume();
         initPopupWindow();
     }
+
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.exit:
                 startActivity(new Intent(MySendFlashActivity.this, LoginActivity.class));
                 SharePrefUtil.saveBoolean(MySendFlashActivity.this, "isLogin",
@@ -139,16 +150,17 @@ public class MySendFlashActivity extends Activity implements View.OnClickListene
                 MySendFlashActivity.this.finish();
                 break;
             case R.id.my_order_ll:
-                startActivity(new Intent(MySendFlashActivity.this,MyOrderActivity.class) );
+                startActivity(new Intent(MySendFlashActivity.this, MyOrderActivity.class));
                 break;
 
             case R.id.cash_account_ll:
-                startActivity(new Intent(MySendFlashActivity.this,MyWalletActivity.class) );
+                startActivity(new Intent(MySendFlashActivity.this, MyWalletActivity.class));
                 break;
             case R.id.rewards_and_punishment_record_ll:
+                startActivity(new Intent(MySendFlashActivity.this, DisciplinaryRecordsActivity.class));
                 break;
             case R.id.promotion_record_ll:
-                startActivity(new Intent(MySendFlashActivity.this,AboutMeActivity.class) );
+                startActivity(new Intent(MySendFlashActivity.this, AboutMeActivity.class));
                 break;
             case R.id.head_portrait:
                 headerpopuWindow.showAtLocation(head_portrait,
@@ -221,7 +233,7 @@ public class MySendFlashActivity extends Activity implements View.OnClickListene
                             .into(new GlideDrawableImageViewTarget(head_portrait));
                     //上传图片
                     Map<String, String> params = new HashMap<>();
-                    params.put("id", userBean.getUserid());
+                    params.put("id", userBean.getId());
                     MultipartRequest mRequest = new MultipartRequest(ParmasUrl.editpic, new MyErrorListener(),
                             new MyListener(),
                             "pic", FileUtils.makeFile(),
@@ -233,6 +245,7 @@ public class MySendFlashActivity extends Activity implements View.OnClickListene
                 break;
         }
     }
+
     private class MyErrorListener implements Response.ErrorListener {
         @Override
         public void onErrorResponse(VolleyError volleyError) {
@@ -249,7 +262,6 @@ public class MySendFlashActivity extends Activity implements View.OnClickListene
                 if (object.getString("code").equals("200")) {
                     userBean.setPic(object.getString("url"));
                     SharePrefUtil.saveObj(MySendFlashActivity.this, "User", userBean);
-
                 }
                 Toast.makeText(MySendFlashActivity.this, object.getString("msg"), Toast.LENGTH_SHORT).show();
             } catch (JSONException e) {
@@ -257,6 +269,7 @@ public class MySendFlashActivity extends Activity implements View.OnClickListene
             }
         }
     }
+
     /**
      * 裁剪图片方法实现
      *

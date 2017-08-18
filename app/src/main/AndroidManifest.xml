@@ -36,10 +36,11 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <!-- 3.2.0版本增加-->
     <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+
+
     <application
         android:name=".app.App"
         android:allowBackup="true"
@@ -110,12 +111,17 @@
         <activity android:name=".activity.MySendFlashActivity" />
         <activity android:name=".activity.WithdrawActivity" />
         <activity android:name=".activity.WithdrawResultActivity" />
+        <activity android:name=".activity.DisciplinaryRecordsActivity" />
         <!-- 设置高德key -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="8613aa0d695e35b11ac7f32b3408794d" />
         <!-- 定位需要的服务 -->
         <service android:name="com.amap.api.location.APSService"></service>
+        <activity android:name="com.amap.api.navi.AmapRouteActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+
+
         <!-- 解决6.0权限问题 -->
         <provider
             android:name="android.support.v4.content.FileProvider"

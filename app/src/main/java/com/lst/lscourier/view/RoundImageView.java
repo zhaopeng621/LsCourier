@@ -182,7 +182,7 @@ public class RoundImageView extends ImageView
 
 	/**
 	 * drawable转bitmap
-	 * 
+	 *
 	 * @param drawable
 	 * @return
 	 */

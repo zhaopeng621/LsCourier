@@ -3,6 +3,7 @@ package com.lst.lscourier.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -19,6 +20,7 @@ import com.lst.lscourier.app.App;
 import com.lst.lscourier.bean.WithdrawBean;
 import com.lst.lscourier.parmas.MyJsonObjectRequest;
 import com.lst.lscourier.parmas.ParmasUrl;
+import com.lst.lscourier.utils.SharePrefUtil;
 import com.lst.lscourier.utils.VolleyErrorHelper;
 import com.lst.lscourier.view.BandCardEditText;
 
@@ -65,7 +67,7 @@ public class WithdrawActivity extends Activity implements View.OnClickListener {
             @Override
             public void failure() {
                 bank_name.setVisibility(View.VISIBLE);
-                bank_name.setText("未查到所属银行，请校对卡号");
+                bank_name.setText("未查到所属银行.请校对卡号");
             }
         });
         confirm_withdraw.setOnClickListener(this);
@@ -94,35 +96,32 @@ public class WithdrawActivity extends Activity implements View.OnClickListener {
                 } else if (Float.valueOf(et_number.getText().toString()) <= 0.0f) {
                     Toast.makeText(WithdrawActivity.this, "请输入提现金额",
                             Toast.LENGTH_SHORT).show();
-                } else if (bank_number.getText().toString().length() < 23) {
-                    Toast.makeText(WithdrawActivity.this, "请输入银行卡号",
+                } else if (bank_number.getText().toString().length() < 23 ||
+                        bank_number.getText().toString().equals("未查到所属银行.请校对卡号")) {
+                    Toast.makeText(WithdrawActivity.this, "卡号不正确",
                             Toast.LENGTH_SHORT).show();
                 } else {
-//                    confirmWithdraw();
-                    WithdrawBean withdrawBean = new WithdrawBean();
-                    withdrawBean.setBankName(bank_name.getText().toString());
-                    withdrawBean.setCardNumber(bank_number.getText().toString());
-                    withdrawBean.setWithdrawNumber(et_number.getText().toString());
-                    Intent intent = new Intent(WithdrawActivity.this, WithdrawResultActivity.class);
-                    intent.putExtra("withdrawBean", withdrawBean);
-                    startActivity(intent);
-                    finish();
+                    confirmWithdraw();
                 }
                 break;
         }
     }
 
     private void confirmWithdraw() {
-        String url = ParmasUrl.register;
+        String url = ParmasUrl.withdrawals;
         Map<String, String> map = new HashMap<>();
-//        map.put("username", username);
-//        map.put("password", password);
+        map.put("deliveryman_id", SharePrefUtil.getString(WithdrawActivity.this, "userid", ""));
+        map.put("money", et_number.getText().toString());
+        map.put("name", et_name.getText().toString());
+        map.put("bank_card", bank_number.getText().toString());
+        map.put("bank_type", bank_name.getText().toString());
+        Log.d("confirmWithdraw--", bank_number.getText().toString());
         MyJsonObjectRequest jsonObjectRequest = new MyJsonObjectRequest(Request.Method.POST, url, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 try {
-                    String
-                            code = jsonObject.getString("code");
+                    Log.d("confirmWithdraw==", jsonObject.toString());
+                    String code = jsonObject.getString("code");
                     if (code.equals("200")) {
                         WithdrawBean withdrawBean = new WithdrawBean();
                         withdrawBean.setBankName(bank_name.getText().toString());

@@ -36,16 +36,16 @@
             android:textSize="21sp"
             android:textColor="@color/white"
             android:textStyle="bold" />
-        <Button
-            android:id="@+id/search_button"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:background="@mipmap/search_white"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:layout_marginRight="20dp"
-            />
+        <!--<Button-->
+            <!--android:id="@+id/search_button"-->
+            <!--android:layout_width="30dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:background="@mipmap/search_white"-->
+            <!--android:textSize="16sp"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:layout_marginRight="20dp"-->
+            <!--/>-->
     </LinearLayout>
 
 

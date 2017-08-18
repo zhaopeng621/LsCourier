@@ -18,6 +18,7 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -25,6 +26,7 @@ android {
         }
     }
     useLibrary 'org.apache.http.legacy'
+
 }
 
 dependencies {
@@ -41,13 +43,13 @@ dependencies {
     //搜索功能
     compile 'com.amap.api:search:5.1.0'
     //3D地图
-//    compile 'com.amap.api:3dmap:5.2.0'
-    //导航
-    compile 'com.amap.api:navi-3dmap:5.2.0'
+    //    compile 'com.amap.api:3dmap:5.2.0'
     //这是一个图片加载框架
     compile 'com.google.code.gson:gson:2.8.1'
     compile project(path: ':xrecyclerview')
     compile files('libs/libammsdk.jar')
     compile files('libs/volley.jar')
     compile files('libs/httpmime-4.2.5.jar')
+    compile files('libs/AMap3DMap_5.2.1_AMapNavi_5.2.1_20170710.jar')
+    compile files('libs/Msc.jar')
 }

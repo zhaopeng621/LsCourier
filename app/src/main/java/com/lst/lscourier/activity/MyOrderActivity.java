@@ -1,6 +1,5 @@
 package com.lst.lscourier.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,13 +11,13 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.lst.lscourier.R;
 import com.lst.lscourier.adapter.MyTabAdapter;
 import com.lst.lscourier.app.App;
 import com.lst.lscourier.bean.OrderEntry;
@@ -30,7 +29,7 @@ import com.lst.lscourier.parmas.MyJsonObjectRequest;
 import com.lst.lscourier.parmas.ParmasUrl;
 import com.lst.lscourier.utils.SharePrefUtil;
 import com.lst.lscourier.utils.VolleyErrorHelper;
-import com.lst.lscourier.R;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,14 +48,14 @@ public class MyOrderActivity extends FragmentActivity implements View.OnClickLis
     private FragmentManager fragmentManager;
     private List<String> list_title;
     private List<Fragment> fragments;
-    private List<OrderEntry> orderList;
+    private List<OrderEntry> orderList  =new ArrayList<>();
     private List<OrderEntry> datas = new ArrayList<>();
     private List<OrderEntry> paiddatas = new ArrayList<>(); //进行中
     private List<OrderEntry> completeddatas = new ArrayList<>();//已完成
     private List<OrderEntry> canceleddatas = new ArrayList<>();//已取消
     private MyTabAdapter tabAdapter;
     private ImageView back_img;
-    private Button searchButton;
+//    private Button searchButton;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -77,7 +76,7 @@ public class MyOrderActivity extends FragmentActivity implements View.OnClickLis
                             Log.d("order_status3", order_status);
                         }
                     }
-                    initLayout();
+
                     break;
                 default:
                     break;
@@ -94,9 +93,9 @@ public class MyOrderActivity extends FragmentActivity implements View.OnClickLis
         initView();
 
         back_img = (ImageView) findViewById(R.id.back_img);
-        searchButton = (Button) findViewById(R.id.search_button);
+//        searchButton = (Button) findViewById(R.id.search_button);
         back_img.setOnClickListener(this);
-        searchButton.setOnClickListener(this);
+//        searchButton.setOnClickListener(this);
     }
 
     @Override
@@ -105,11 +104,11 @@ public class MyOrderActivity extends FragmentActivity implements View.OnClickLis
             case R.id.back_img:
                 MyOrderActivity.this.finish();
                 break;
-            case R.id.search_button:
-                Intent searchButton = new Intent();
-                searchButton.setClass(MyOrderActivity.this, SearchActivity.class);
-                startActivity(searchButton);
-                break;
+//            case R.id.search_button:
+//                Intent searchButton = new Intent();
+//                searchButton.setClass(MyOrderActivity.this, SearchActivity.class);
+//                startActivity(searchButton);
+//                break;
         }
     }
 
@@ -150,16 +149,17 @@ public class MyOrderActivity extends FragmentActivity implements View.OnClickLis
     public void getAllOrder() {
         String url = ParmasUrl.select_order;
         Map<String, String> hashMap = new HashMap<>();
-        hashMap.put("user_id", SharePrefUtil.getString(MyOrderActivity.this, "userid", ""));
+        hashMap.put("id", SharePrefUtil.getString(MyOrderActivity.this, "userid", ""));
         MyJsonObjectRequest stringRequest = new MyJsonObjectRequest(Request.Method.POST, url, hashMap, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject object) {
                 try {
                     Log.d("login======", object.toString());
                     if (object.getString("code").equals("200")) {
-                        JSONArray arr = object.getJSONArray("order_id");
+                        JSONArray arr = object.getJSONArray("data");
                         for (int i = 0; i < arr.length(); i++) {
-                            final JSONObject obj = arr.getJSONObject(i);
+                            JSONObject json = arr.getJSONObject(i);
+                            final JSONObject obj = json.getJSONObject("order");
                             OrderEntry orderBean = new OrderEntry();
                             orderBean.setId(obj.getString("id"));
                             orderBean.setOrder_id(obj.getString("order_id"));
@@ -215,6 +215,7 @@ public class MyOrderActivity extends FragmentActivity implements View.OnClickLis
                         handler.sendMessage(msg);
 
                     }
+                    initLayout();
                     Toast.makeText(MyOrderActivity.this, object.getString("msg"), Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();

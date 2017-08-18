@@ -22,7 +22,6 @@ import com.lst.lscourier.parmas.ParmasUrl;
 import com.lst.lscourier.utils.SharePrefUtil;
 import com.lst.lscourier.utils.VolleyErrorHelper;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -103,10 +102,10 @@ public class MyWalletActivity extends Activity implements View.OnClickListener {
             @Override
             public void onResponse(JSONObject object) {
                 try {
-                    Log.d("login======", object.toString());
+                    Log.d("wallet======", object.toString());
                     if (object.getString("code").equals("200")) {
-                        JSONArray data = object.getJSONArray("data");
-                        String balance = data.getJSONObject(0).getString("balance");
+
+                        String balance = object.getString("data");
                         tv_balance.setText(balance);
                     }
                     Toast.makeText(MyWalletActivity.this, object.getString("msg"), Toast.LENGTH_SHORT).show();

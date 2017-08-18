@@ -42,15 +42,19 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private Button login_button_login, login_button_flash_operator_enroll;
     private TextView login_text_find_password, login_text_protocol, login_text_device_number;
     private Intent intent;
-    private String saveUserId;
+    private String saveUserId, mUserId;
     private UserBean mUser = new UserBean();
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
+                    mUserId = (String) msg.obj;
+                    getUserBean(mUserId);
+                    break;
+                case 1:
                     mUser = (UserBean) msg.obj;
-                    saveUserId = mUser.getUserid();
+                    saveUserId = mUser.getId();
                     SharePrefUtil.saveString(LoginActivity.this, "userid",
                             saveUserId);
                     SharePrefUtil.saveBoolean(LoginActivity.this, "isLogin",
@@ -124,16 +128,62 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     Log.d("login======", object.toString());
                     if (object.getString("code").equals("200")) {
                         JSONObject obj = object.getJSONArray("data").getJSONObject(0);
-                        UserBean userBean = new UserBean();
-                        userBean.setUserid(obj.getString("id"));
-                        userBean.setUsername(obj.getString("username"));
-                        userBean.setPhone(obj.getString("phone"));
-                        userBean.setPic(obj.getString("pic"));
-                        userBean.setLevel(obj.getString("level"));
-                        userBean.setIntegral(obj.getString("integral"));
-                        userBean.setBalance(obj.getString("balance"));
+                        String id = obj.getString("id");
                         Message msg = handler.obtainMessage();
                         msg.what = 0;
+                        msg.obj = id;
+                        handler.sendMessage(msg);
+                    }
+                    Toast.makeText(LoginActivity.this, object.getString("msg"), Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Toast.makeText(LoginActivity.this, VolleyErrorHelper.getMessage(volleyError, LoginActivity.this), Toast.LENGTH_SHORT).show();
+            }
+        });
+        jsonObjectRequest.setTag("loginPost");
+        // 将请求添加到队列中
+        App.getHttpQueue().add(jsonObjectRequest);
+
+    }
+
+    /*
+        * 获取用户信息
+        */
+    @SuppressLint("NewApi")
+    private void getUserBean(String mId) {
+        String url = ParmasUrl.showuser;
+        Map<String, String> map = new HashMap<>();
+        map.put("id", mId);
+        // 创建StringRequest，定义字符串请求的请求方式为POST，
+        MyJsonObjectRequest jsonObjectRequest = new MyJsonObjectRequest(Request.Method.POST, url, map, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject object) {
+                Log.d("getUserBean======", object.toString());
+                try {
+                    if (object.getString("code").equals("200")) {
+                        JSONObject data = object.getJSONObject("data");
+                        JSONObject obj = data.getJSONObject("0");
+                        UserBean userBean = new UserBean();
+                        userBean.setId(obj.getString("id"));
+                        userBean.setUsername(obj.getString("username"));
+                        userBean.setPic(obj.getString("pic"));
+                        userBean.setId_card(obj.getString("id_card"));
+                        userBean.setStatus(obj.getString("status"));
+                        userBean.setIs_pay(obj.getString("is_pay"));
+                        userBean.setMoney(obj.getString("money"));
+                        userBean.setToday_money(data.getString("today_money"));
+                        userBean.setY_day_money(data.getString("y_day_money"));
+                        userBean.setAll_money(data.getString("all_money"));
+                        userBean.setExit_order(data.getString("exit_order"));
+                        userBean.setOrder(data.getString("order"));
+                        userBean.setMonth_money(data.getString("month_money"));
+                        Message msg = handler.obtainMessage();
+                        msg.what = 1;
                         msg.obj = userBean;
                         handler.sendMessage(msg);
                     }

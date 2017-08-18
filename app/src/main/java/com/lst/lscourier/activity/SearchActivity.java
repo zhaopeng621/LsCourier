@@ -25,7 +25,6 @@ import com.lst.lscourier.adapter.RecyclerAdapter;
 import com.lst.lscourier.app.App;
 import com.lst.lscourier.bean.OrderEntry;
 import com.lst.lscourier.parmas.MyJsonObjectRequest;
-import com.lst.lscourier.parmas.ParmasUrl;
 import com.lst.lscourier.utils.SharePrefUtil;
 import com.lst.lscourier.utils.VolleyErrorHelper;
 
@@ -85,7 +84,8 @@ public class SearchActivity extends Activity implements XRecyclerView.LoadingLis
     };
 
     private void searchOrder(final String text) {
-        String url = ParmasUrl.searchorder;
+//        String url = ParmasUrl.searchorder;
+        String url = "";
         Map<String, String> hashMap = new HashMap<>();
         hashMap.put("user_id", SharePrefUtil.getString(SearchActivity.this, "userid", ""));
         hashMap.put("text", text);

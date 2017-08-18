@@ -4,9 +4,16 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Poi;
+import com.amap.api.navi.AmapNaviPage;
+import com.amap.api.navi.AmapNaviParams;
+import com.amap.api.navi.INaviInfoCallback;
+import com.amap.api.navi.model.AMapNaviLocation;
 import com.lst.lscourier.R;
 import com.lst.lscourier.bean.OrderEntry;
 
@@ -17,6 +24,7 @@ import com.lst.lscourier.bean.OrderEntry;
 
 public class OrderDetailActivity extends FragmentActivity {
     private OrderEntry orderEntry;
+    private Button bt_map;
     private TextView order_details_order_status, order_details_order_number, order_details_order_price,
             order_details_order_taking_address, order_details_service_address, order_total_price,
             order_details_order_distance, order_details_order_weight, order_taking_address_user,
@@ -64,7 +72,55 @@ public class OrderDetailActivity extends FragmentActivity {
         item_information = (TextView) findViewById(R.id.item_information);
         remark_information = (TextView) findViewById(R.id.remark_information);
         payment = (TextView) findViewById(R.id.payment);
+        bt_map = (Button) findViewById(R.id.bt_map);
+        bt_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Poi poi = new Poi(orderEntry.getStart_address(), new LatLng(
+                        Double.valueOf(orderEntry.getStart_lat()), Double.valueOf(orderEntry.getStart_long())), null);
+                AmapNaviPage.getInstance().showRouteActivity(OrderDetailActivity.this, new AmapNaviParams(poi), new INaviInfoCallback() {
+                    @Override
+                    public void onInitNaviFailure() {
 
+                    }
+
+                    @Override
+                    public void onGetNavigationText(String s) {
+
+                    }
+
+                    @Override
+                    public void onLocationChange(AMapNaviLocation aMapNaviLocation) {
+
+                    }
+
+                    @Override
+                    public void onArriveDestination(boolean b) {
+
+                    }
+
+                    @Override
+                    public void onStartNavi(int i) {
+
+                    }
+
+                    @Override
+                    public void onCalculateRouteSuccess(int[] ints) {
+
+                    }
+
+                    @Override
+                    public void onCalculateRouteFailure(int i) {
+
+                    }
+
+                    @Override
+                    public void onStopSpeaking() {
+
+                    }
+                });
+            }
+        });
     }
 
     private void initData() {
@@ -80,7 +136,7 @@ public class OrderDetailActivity extends FragmentActivity {
         order_taking_address_user_phone_number.setText(orderEntry.getStart_phone());
         service_address_user.setText(orderEntry.getExit_name());
         service_address_user_phone_number.setText(orderEntry.getExit_phone());
-        order_taking_time.setText(orderEntry.getStart_time());
+        order_taking_time.setText(orderEntry.getOrder_time());
         item_information.setText(orderEntry.getOrder_type());
         remark_information.setText(orderEntry.getMessage());
         payment.setText(orderEntry.getPay_type());

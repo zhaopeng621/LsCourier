@@ -8,11 +8,19 @@ import java.io.Serializable;
 public class WithdrawBean implements Serializable {
 
     private String orderId;
-    private String orderTime;
-    private String cardNumber;
+    private String trueName;
     private String bankName;
+    private String cardNumber;
     private String withdrawNumber;
+    private String orderTime;
 
+    public String getTrueName() {
+        return trueName;
+    }
+
+    public void setTrueName(String trueName) {
+        this.trueName = trueName;
+    }
     public String getOrderTime() {
         return orderTime;
     }

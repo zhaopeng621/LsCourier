@@ -63,9 +63,10 @@ public class ScrambleActivity extends CheckPermissionsActivity implements XRecyc
             switch (msg.what) {
                 case 0:
                     String obj = (String) msg.obj;
-                    if (obj.equals("200")){
+                    if (obj.equals("200")) {
                         img_grab.setBackgroundResource(R.mipmap.grab_success);
-                    }else{
+                        setResult(100);
+                    } else {
                         img_grab.setBackgroundResource(R.mipmap.tasked);
                     }
                     break;
@@ -74,6 +75,7 @@ public class ScrambleActivity extends CheckPermissionsActivity implements XRecyc
             }
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,16 +87,16 @@ public class ScrambleActivity extends CheckPermissionsActivity implements XRecyc
     }
 
     private void getOrder() {
-        String url = ParmasUrl.select_order;
+        String url = ParmasUrl.deliveryman_order;
         Map<String, String> hashMap = new HashMap<>();
         hashMap.put("user_id", SharePrefUtil.getString(ScrambleActivity.this, "userid", ""));
         MyJsonObjectRequest stringRequest = new MyJsonObjectRequest(Request.Method.POST, url, hashMap, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject object) {
                 try {
-                    Log.d("login======", object.toString());
+                    Log.d("getOrder======", object.toString());
                     if (object.getString("code").equals("200")) {
-                        JSONArray arr = object.getJSONArray("order_id");
+                        JSONArray arr = object.getJSONArray("data");
                         for (int i = arr.length() - 1; i > -1; i--) {
                             final JSONObject obj = arr.getJSONObject(i);
                             OrderEntry orderBean = new OrderEntry();
@@ -209,7 +211,7 @@ public class ScrambleActivity extends CheckPermissionsActivity implements XRecyc
     }
 
     //支付明细
-    private void openPopupwin(View v,final int position) {
+    private void openPopupwin(View v, final int position) {
         // 利用layoutInflater获得View
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.scramble_pop, null);
@@ -256,7 +258,8 @@ public class ScrambleActivity extends CheckPermissionsActivity implements XRecyc
         tv_scramble.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                rateOrder(datas.get(position).getOrder_id().toString());
+                rateOrder(datas.get(position).getOrder_id().toString(),
+                        String.valueOf(Float.valueOf(datas.get(position).getMoney()) * 0.8));
             }
         });
         close_img.setOnClickListener(new View.OnClickListener() {
@@ -273,37 +276,37 @@ public class ScrambleActivity extends CheckPermissionsActivity implements XRecyc
         });
     }
 
-    private void rateOrder(String orderId) {
-            String url = ParmasUrl.rate_order;
-            Map<String, String> map = new HashMap<>();
-            map.put("d_id", SharePrefUtil.getString(ScrambleActivity.this,"userid",""));
-            map.put("order_id", orderId);
-            // 创建StringRequest，定义字符串请求的请求方式为POST，
-            MyJsonObjectRequest jsonObjectRequest = new MyJsonObjectRequest(Request.Method.POST, url, map, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject object) {
-                    try {
-                        Log.d("rate_order======", object.toString());
-                        String code = object.getString("code");
-                        Message msg = handler.obtainMessage();
-                        msg.what = 0;
-                        msg.obj = code;
-                        handler.sendMessage(msg);
-                        Toast.makeText(ScrambleActivity.this, object.getString("msg"), Toast.LENGTH_SHORT).show();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+    private void rateOrder(String orderId, String money) {
+        String url = ParmasUrl.rate_order;
+        Map<String, String> map = new HashMap<>();
+        map.put("d_id", SharePrefUtil.getString(ScrambleActivity.this, "userid", ""));
+        map.put("order_id", orderId);
+        map.put("money", money);
+        // 创建StringRequest，定义字符串请求的请求方式为POST，
+        MyJsonObjectRequest jsonObjectRequest = new MyJsonObjectRequest(Request.Method.POST, url, map, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject object) {
+                try {
+                    Log.d("rate_order======", object.toString());
+                    String code = object.getString("code");
+                    Message msg = handler.obtainMessage();
+                    msg.what = 0;
+                    msg.obj = code;
+                    handler.sendMessage(msg);
+                    Toast.makeText(ScrambleActivity.this, object.getString("msg"), Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError volleyError) {
-                    Toast.makeText(ScrambleActivity.this, VolleyErrorHelper.getMessage(volleyError, ScrambleActivity.this), Toast.LENGTH_SHORT).show();
-                }
-            });
-            jsonObjectRequest.setTag("loginPost");
-            // 将请求添加到队列中
-            App.getHttpQueue().add(jsonObjectRequest);
-
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Toast.makeText(ScrambleActivity.this, VolleyErrorHelper.getMessage(volleyError, ScrambleActivity.this), Toast.LENGTH_SHORT).show();
+            }
+        });
+        jsonObjectRequest.setTag("loginPost");
+        // 将请求添加到队列中
+        App.getHttpQueue().add(jsonObjectRequest);
 
 
     }

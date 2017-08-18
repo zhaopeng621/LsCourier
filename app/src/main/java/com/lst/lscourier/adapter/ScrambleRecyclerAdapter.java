@@ -48,15 +48,9 @@ public class ScrambleRecyclerAdapter extends XRecyclerView.Adapter<ScrambleRecyc
         holder.tv_my_address.setText(SharePrefUtil.getString(mContext, "MyLocation", ""));
         long time = System.currentTimeMillis();
         String order_time = datas.get(position).getOrder_time();
-        String Mytime = "";
-        if (order_time.length() < 12) {
-            Mytime = "2017-" + order_time;
-        } else {
-            Mytime = order_time;
-        }
         long mTime = 0;
         if (!order_time.equals("null")) {
-            String data = TimeUtils.data(Mytime);
+            String data = TimeUtils.data(order_time);
             long aLong = Long.valueOf(data) * 1000;
             mTime = aLong - time;
             Log.e("time", String.valueOf(time));

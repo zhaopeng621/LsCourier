@@ -31,17 +31,19 @@
     <string name="upload_front">上传正面</string>
     <string name="upload_back">上传背面</string>
     <string name="send_flash">闪送</string>
-    <string name="true_name">真实姓名:</string>
+    <string name="true_name">真实姓名：</string>
     <string name="input_true_name">请输入真实姓名</string>
-    <string name="bank_card">银行卡号:</string>
+    <string name="bank_card">银行卡号：</string>
+    <string name="bank_name">所属银行：</string>
     <string name="input_bank_card">请输入银行卡号</string>
-    <string name="withdraw_number">提现金额:</string>
+    <string name="withdraw_number">提现金额：</string>
+    <string name="withdraw_time">提现时间：</string>
     <string name="input_withdraw_number">请输入提现金额</string>
     <string name="input_id_number">输入身份证号码</string>
     <string name="input_new_password">输入新密码</string>
     <string name="reenter_the_new_password">重新输入新密码</string>
     <string name="id_number">身份证号：</string>
-    <string name="data_filling">资料填写</string>
+    <string name="data_filling">完善资料</string>
     <string name="next_step">下一步</string>
     <string name="educational_background">学历：</string>
     <string name="profession">职业：</string>
@@ -57,7 +59,7 @@
     <string name="motorcycle">摩托车</string>
 
 
-    <string name="postgraduate">研究生</string>
+    <string name="postgraduate">研究生及以上</string>
     <string name="undergraduate">本科</string>
     <string name="junior_college">专科</string>
     <string name="senior_high_school">高中</string>
@@ -162,6 +164,7 @@
     <string name="withdraw_indication">提现说明</string>
     <string name="consumer_details_no">你还没有收入记录!</string>
     <string name="recharge_record_no">你还没有提现记录!</string>
+    <string name="disciplinary_record_no">你还没有奖惩记录!</string>
 
 
     <string name="my_invoice">我的发票</string>
@@ -240,4 +243,11 @@
     <string name="today_order">今日单</string>
     <string name="refresh">刷新</string>
     <string name="please_describe_the_problems_you_have_encountered">请输入你要反馈的具体内容</string>
+
+
+    <string name="disciplinary_type">类型：</string>
+    <string name="disciplinary_time">时间：</string>
+    <string name="disciplinary_money">金额：</string>
+    <string name="disciplinary_msg">原因：</string>
+
 </resources>

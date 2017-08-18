@@ -7,6 +7,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,34 +15,59 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.lst.lscourier.R;
+import com.lst.lscourier.app.App;
+import com.lst.lscourier.parmas.ParmasUrl;
+import com.lst.lscourier.photo.MultipartRequest;
 import com.lst.lscourier.utils.FileUtils;
-import com.lst.lscourier.utils.GlideCircleTransform;
-import com.lst.lscourier.utils.SharePrefUtil;
+import com.lst.lscourier.utils.IDCardUtils;
+import com.lst.lscourier.utils.ToastUtils;
+import com.lst.lscourier.utils.VolleyErrorHelper;
+import com.lst.lscourier.view.FlowRadioGroup;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
  * Created by lst719 on 2017/7/24.
  */
 
-public class DataFillingActivity extends Activity implements View.OnClickListener{
-    private Button upload_front,upload_back, data_filling_next_step;
-    private TextView postgraduate,undergraduate,junior_college,senior_high_school
-            ,junior_high_school,primary_school,educational_background_et,bicycle,subway,bus
-            ,car,electrombile,motorcycle, popwindow_Item_gallery, popwindow_Item_camera, cancle;
-    private ImageView identification_photo;
-    private LinearLayout educational_background,popwindowBackground;
-    private PopupWindow popupWindow_educational_background,headerpopuWindow;
-    private View view;
+public class DataFillingActivity extends Activity implements View.OnClickListener {
+    private Button upload_front, upload_back, data_filling_next_step;
+    private FlowRadioGroup radioGroup;
+    private TextView educational_background_et, postgraduate, undergraduate, junior_college, senior_high_school,
+            junior_high_school, primary_school, popwindow_Item_gallery, popwindow_Item_camera, cancle;
+    private EditText et_name, card_number, profession, emergency_contact, emergency_contact_number, et_current_address;
+    private ImageView identification_photo, img_upload_back, img_upload_front;
+    private LinearLayout educational_background, popwindowBackground;
+    private PopupWindow popupWindow_educational_background, headerpopuWindow;
     private Intent intent;
+    private String tripMode = "";
+    private File headFile = new File("");
+    private File frontFile = new File("");
+    private File backFile = new File("");
 
 
     @Override
@@ -53,6 +79,7 @@ public class DataFillingActivity extends Activity implements View.OnClickListene
         initTitle();
 
     }
+
     private void initTitle() {
         ImageView title_back = (ImageView) findViewById(R.id.title_back);
         TextView title_text = (TextView) findViewById(R.id.title_text);
@@ -64,38 +91,43 @@ public class DataFillingActivity extends Activity implements View.OnClickListene
             }
         });
     }
+
     private void initView() {
-        identification_photo= (ImageView) findViewById(R.id.identification_photo);
-        upload_front= (Button) findViewById(R.id.upload_front);
-        upload_back= (Button) findViewById(R.id.upload_back);
+        identification_photo = (ImageView) findViewById(R.id.identification_photo);
+        img_upload_front = (ImageView) findViewById(R.id.img_upload_front);
+        img_upload_back = (ImageView) findViewById(R.id.img_upload_back);
+        et_name = (EditText) findViewById(R.id.et_name);
+        card_number = (EditText) findViewById(R.id.card_number);
+        educational_background_et = (TextView) findViewById(R.id.educational_background_et);
+        profession = (EditText) findViewById(R.id.profession);
+        emergency_contact = (EditText) findViewById(R.id.emergency_contact);
+        emergency_contact_number = (EditText) findViewById(R.id.emergency_contact_number);
+        et_current_address = (EditText) findViewById(R.id.et_current_address);
+        radioGroup = (FlowRadioGroup) findViewById(R.id.radioGroup);
+
+        upload_front = (Button) findViewById(R.id.upload_front);
+        upload_back = (Button) findViewById(R.id.upload_back);
         data_filling_next_step = (Button) findViewById(R.id.data_filling_next_step);
-        educational_background= (LinearLayout) findViewById(R.id.educational_background);
-        educational_background_et= (TextView) findViewById(R.id.educational_background_et);
-        bicycle= (TextView) findViewById(R.id.bicycle);
-        subway= (TextView) findViewById(R.id.subway);
-        bus= (TextView) findViewById(R.id.bus);
-        car= (TextView) findViewById(R.id.car);
-        electrombile= (TextView) findViewById(R.id.electrombile);
-        motorcycle= (TextView) findViewById(R.id.motorcycle);
+        educational_background = (LinearLayout) findViewById(R.id.educational_background);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup arg0, int arg1) {
+                // TODO Auto-generated method stub
+                //获取变更后的选中项的ID
+                int radioButtonId = arg0.getCheckedRadioButtonId();
+                //根据ID获取RadioButton的实例
+                RadioButton rb = (RadioButton) DataFillingActivity.this.findViewById(radioButtonId);
+                //更新文本内容，以符合选中项
+                tripMode = rb.getText().toString();
+            }
+        });
         identification_photo.setOnClickListener(this);
         upload_front.setOnClickListener(this);
         upload_back.setOnClickListener(this);
         data_filling_next_step.setOnClickListener(this);
         educational_background.setOnClickListener(this);
-        bicycle.setOnClickListener(this);
-        subway.setOnClickListener(this);
-        bus.setOnClickListener(this);
-        car.setOnClickListener(this);
-        electrombile.setOnClickListener(this);
-        motorcycle.setOnClickListener(this);
-        setChosed(electrombile);
-//        Glide.with(this).load("file://"+ FileUtils.makeFile())
-//                .error(R.mipmap.head_tmp)
-//                .diskCacheStrategy(DiskCacheStrategy.NONE)
-//                .skipMemoryCache(true)
-//                .crossFade().placeholder(R.mipmap.head_tmp)
-//                .transform(new GlideCircleTransform(this))
-//                .into(identification_photo);
+
     }
 
     @Override
@@ -104,52 +136,61 @@ public class DataFillingActivity extends Activity implements View.OnClickListene
         initPopupWindow();
     }
 
-    //点击改变出行方式textview的背景
-    public void setChosed(View view){
-        bicycle.setSelected(false);
-        subway.setSelected(false);
-        bus.setSelected(false);
-        car.setSelected(false);
-        electrombile.setSelected(false);
-        motorcycle.setSelected(false);
-        view.setSelected(true);
+    private void reSelected() {
+        identification_photo.setSelected(false);
+        upload_front.setSelected(false);
+        upload_back.setSelected(false);
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.bicycle:
-                setChosed(bicycle);
-                break;
-            case R.id.subway:
-                setChosed(subway);
-                break;
-            case R.id.bus:
-                setChosed(bus);
-                break;
-            case R.id.car:
-                setChosed(car);
-                break;
-            case R.id.electrombile:
-                setChosed(electrombile);
-                break;
-            case R.id.motorcycle:
-                setChosed(motorcycle);
-                break;
-
+        switch (view.getId()) {
             case R.id.identification_photo:
                 headerpopuWindow.showAtLocation(identification_photo,
                         Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+                reSelected();
+                identification_photo.setSelected(true);
                 break;
             case R.id.upload_front:
+                headerpopuWindow.showAtLocation(upload_front,
+                        Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+                reSelected();
+                upload_front.setSelected(true);
                 break;
             case R.id.upload_back:
+                headerpopuWindow.showAtLocation(upload_back,
+                        Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+                reSelected();
+                upload_back.setSelected(true);
                 break;
             case R.id.data_filling_next_step:
-                SharePrefUtil.saveBoolean(DataFillingActivity.this,"isDataFilling",true);
-                intent=new Intent().setClass(this,MainActivity.class);
-                startActivity(intent);
-                finish();
+
+                if (!headFile.exists()) {
+                    ToastUtils.showToast(DataFillingActivity.this, "请上传证件照");
+                } else if (et_name.getText().toString().equals("")) {
+                    ToastUtils.showToast(DataFillingActivity.this, "真实姓名不能为空");
+                } else if (card_number.getText().toString().equals("")) {
+                    ToastUtils.showToast(DataFillingActivity.this, "身份证号码不能为空");
+                } else if (!IDCardUtils.IDCardValidate(card_number.getText().toString()).equals("")) {
+                    ToastUtils.showToast(DataFillingActivity.this,
+                            IDCardUtils.IDCardValidate(card_number.getText().toString()));
+                } else if (!frontFile.exists() || !backFile.exists()) {
+                    ToastUtils.showToast(DataFillingActivity.this, "请上传身份证");
+                } else if (educational_background_et.getText().toString().equals("")) {
+                    ToastUtils.showToast(DataFillingActivity.this, "请选择学历");
+                } else if (profession.getText().toString().equals("")) {
+                    ToastUtils.showToast(DataFillingActivity.this, "请填写职业");
+                } else if (emergency_contact.getText().toString().equals("")) {
+                    ToastUtils.showToast(DataFillingActivity.this, "紧急联系人不能为空");
+                } else if (emergency_contact_number.getText().toString().equals("")) {
+                    ToastUtils.showToast(DataFillingActivity.this, "紧急联系人电话不能为空");
+                } else if (et_current_address.getText().toString().equals("")) {
+                    ToastUtils.showToast(DataFillingActivity.this, "请填写现居住地地址");
+                } else if (tripMode.equals("")) {
+                    tripMode = "自行车";
+                } else {
+                    perfectInformation();
+                }
                 break;
             case R.id.popwindow_gallery:
                 gallery();
@@ -195,22 +236,70 @@ public class DataFillingActivity extends Activity implements View.OnClickListene
         }
     }
 
+    /*
+       * 完善信息
+       */
 
-    private void initPopupWindow_educational_background(){
-        View contentView= LayoutInflater.from(this).inflate(R.layout.list_educational_background,null);
+    private void perfectInformation() {
+        Map<String, String> map = new HashMap<>();
+        map.put("username", et_name.getText().toString());
+        map.put("password", card_number.getText().toString());
+        map.put("password", educational_background_et.getText().toString());
+        map.put("password", profession.getText().toString());
+        map.put("password", emergency_contact.getText().toString());
+        map.put("password", emergency_contact_number.getText().toString());
+        map.put("password", tripMode);
+        List<File> files = new ArrayList<>();
+        files.add(headFile);
+        files.add(frontFile);
+        files.add(backFile);
+        MultipartRequest mRequest = new MultipartRequest(ParmasUrl.editpic, new MyErrorListener(),
+                new MyListener(),
+                "pic", files,
+                map);
+        App.getHttpQueue().add(mRequest);
+    }
+
+    private class MyListener implements Response.Listener<String> {
+        @Override
+        public void onResponse(String s) {
+            try {
+                Log.d("updatpic======", s.toString());
+                JSONObject object = new JSONObject(s);
+                if (object.getString("code").equals("200")) {
+//                intent = new Intent().setClass(this, MainActivity.class);
+//                startActivity(intent);
+//                finish();
+                }
+                Toast.makeText(DataFillingActivity.this, object.getString("msg"), Toast.LENGTH_SHORT).show();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class MyErrorListener implements Response.ErrorListener {
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+            Toast.makeText(DataFillingActivity.this, VolleyErrorHelper.getMessage(volleyError, DataFillingActivity.this), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void initPopupWindow_educational_background() {
+        View contentView = LayoutInflater.from(this).inflate(R.layout.list_educational_background, null);
 
         //TODO popupWindow在屏幕显示的宽度设置
-        WindowManager manager=(WindowManager)getSystemService(DataFillingActivity.WINDOW_SERVICE);
-        int width=manager.getDefaultDisplay().getWidth()/13*11;
+        WindowManager manager = (WindowManager) getSystemService(DataFillingActivity.WINDOW_SERVICE);
+        int width = manager.getDefaultDisplay().getWidth() / 13 * 11;
 
-        popupWindow_educational_background=new PopupWindow(contentView,width,
-                ViewGroup.LayoutParams.WRAP_CONTENT,true);
-        postgraduate= (TextView) contentView.findViewById(R.id.postgraduate);
-        undergraduate= (TextView) contentView.findViewById(R.id.undergraduate);
-        junior_college= (TextView) contentView.findViewById(R.id.junior_college);
-        senior_high_school= (TextView) contentView.findViewById(R.id.senior_high_school);
-        junior_high_school= (TextView) contentView.findViewById(R.id.junior_high_school);
-        primary_school= (TextView) contentView.findViewById(R.id.primary_school);
+        popupWindow_educational_background = new PopupWindow(contentView, width,
+                ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        postgraduate = (TextView) contentView.findViewById(R.id.postgraduate);
+        undergraduate = (TextView) contentView.findViewById(R.id.undergraduate);
+        junior_college = (TextView) contentView.findViewById(R.id.junior_college);
+        senior_high_school = (TextView) contentView.findViewById(R.id.senior_high_school);
+        junior_high_school = (TextView) contentView.findViewById(R.id.junior_high_school);
+        primary_school = (TextView) contentView.findViewById(R.id.primary_school);
 
         postgraduate.setOnClickListener(this);
         undergraduate.setOnClickListener(this);
@@ -228,7 +317,7 @@ public class DataFillingActivity extends Activity implements View.OnClickListene
 
 
     private void initPopupWindow() {
-        view = this.getLayoutInflater().inflate(R.layout.popwindow_userinfo_choice, null);
+        View view = this.getLayoutInflater().inflate(R.layout.popwindow_userinfo_choice, null);
         headerpopuWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         popwindow_Item_gallery = (TextView) view.findViewById(R.id.popwindow_gallery);
@@ -284,15 +373,26 @@ public class DataFillingActivity extends Activity implements View.OnClickListene
                 if (requestCode == 1) {
                     startPhotoZoom(Uri.fromFile(FileUtils.makeFile()));
                 } else if (requestCode == 3) {
-                    Glide.with(this).load("file://" + FileUtils.makeFile())
+                    DrawableRequestBuilder<String> transform = Glide.with(this).load("file://" + FileUtils.makeFile())
                             .diskCacheStrategy(DiskCacheStrategy.NONE)
                             .skipMemoryCache(true)
-                            .crossFade().transform(new GlideCircleTransform(this))
-                            .error(R.mipmap.head_tmp)
-                            .into(new GlideDrawableImageViewTarget(identification_photo));
+                            .crossFade();
+                    if (identification_photo.isSelected()) {
+                        transform.error(R.mipmap.head_tmp);
+                        transform.into(new GlideDrawableImageViewTarget(identification_photo));
+                        headFile = FileUtils.makeFile();
+                    } else if (upload_front.isSelected()) {
+                        transform.error(R.mipmap.id_card_a_tmp);
+                        transform.into(new GlideDrawableImageViewTarget(img_upload_front));
+                        frontFile = FileUtils.makeFile();
+                    } else if (upload_back.isSelected()) {
+                        transform.error(R.mipmap.idcard_b_tmp);
+                        transform.into(new GlideDrawableImageViewTarget(img_upload_back));
+                        backFile = FileUtils.makeFile();
+                    }
                 } else if (requestCode == 2) {
                     startPhotoZoom(data.getData());
-                }else if(requestCode==4){
+                } else if (requestCode == 4) {
                     startPhotoZoom(data.getData());
                 }
                 break;

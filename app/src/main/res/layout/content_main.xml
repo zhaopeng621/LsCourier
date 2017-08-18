@@ -134,9 +134,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:text="@string/today_order" />
 
+        <LinearLayout
+            android:id="@+id/refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="3dp"
+                android:src="@mipmap/code_refresh" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/refresh" />
+        </LinearLayout>
     </RelativeLayout>
 
 
@@ -144,11 +165,14 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none"/>
+        android:scrollbars="none"
+        android:visibility="gone" />
+
     <TextView
         android:id="@+id/tv_null"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/bg_White"
         android:gravity="center"
-        android:text="@string/you_have_no_orders"/>
+        android:text="@string/you_have_no_orders" />
 </LinearLayout>

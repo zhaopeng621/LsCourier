@@ -5,45 +5,40 @@ package com.lst.lscourier.parmas;
  */
 public class ParmasUrl {
     //用户注册
-//    public static String register = "http://192.168.1.148/longshangxing/index.php?s=/Home/User/register";
-    public static String register = "http://k.360lst.com/index.php?s=/Home/User/register";
+//    public static String register = "http://k.360lst.com/index.php?s=/Home/Personnel/register";
+    public static String register = "http://192.168.1.148/longshangxing/index.php?s=/Home/Personnel/register";
     //用户登录
-    public static String login = "http://k.360lst.com/index.php?s=/Home/User/login";
+    public static String login = "http://192.168.1.148/longshangxing/index.php?s=/Home/Personnel/login";
     // 短信验证码
-    public static String sendSms = "http://k.360lst.com/index.php?s=/Home/User/sendSms";
+    public static String sendSms = "http://192.168.1.148/longshangxing/index.php?s=/Home/Personnel/sendSms";
     //   重置密码
-    public static String repwd = "http://k.360lst.com/index.php?s=/Home/User/reset_pwd";
+    public static String repwd = "http://192.168.1.148/longshangxing/index.php?s=/Home/Personnel/reset_pwd";
     //    用户详情
-    public static String showuser = "http://k.360lst.com/index.php?s=/Home/User/showuser";
+    public static String showuser = "http://192.168.1.148/longshangxing/index.php?s=/Home/Personnel/showuser";
     //    上传修改图片
-    public static String editpic = "http://k.360lst.com/index.php?s=/Home/User/editpic";
+    public static String editpic = "http://192.168.1.148/longshangxing/index.php?s=/Home/Personnel/editpic";
     //    用户个人订单
-    public static String select_order = "http://k.360lst.com/index.php?s=/Home/Order/select_order";
-    //    生成订单
-    public static String add_order = "http://k.360lst.com/index.php?s=/Home/Order/add_order";
-    //    获取订单详情
-    public static String detail_order = "http://k.360lst.com/index.php?s=/Home/Order/detail_order";
-    //    获取订单进度
-    public static String order_log = "http://k.360lst.com/index.php?s=/Home/Order/order_log";
-    //    确认收货
-    public static String confirmorder = "http://k.360lst.com/index.php?s=/Home/Order/confirmorder";
-    //    关闭订单
-    public static String shutorder = "http://k.360lst.com/index.php?s=/Home/Order/shutorder";
-    //    根据条件查询订单
-    public static String searchorder = "http://k.360lst.com/index.php?s=/Home/Order/searchorder";
+    public static String select_order = "http://192.168.1.148/longshangxing/index.php?s=/Home/Perorder/select_order";
     //    送货员接单
-    public static String rate_order = "http://k.360lst.com/index.php?s=/Home/Order/rate_order";
-    //    待送货订单表
-    public static String deliveryman_order = "http://k.360lst.com/index.php?s=/Home/Order/deliveryman_order";
-
-    //    用户钱包详情
-    public static String wallet = "http://k.360lst.com/index.php?s=/Home/Wallet/index";
+    public static String rate_order = "http://192.168.1.148/longshangxing/index.php?s=/Home/Order/rate_order";
+    //    用户钱包
+    public static String wallet = "http://192.168.1.148/longshangxing/index.php?s=/Home/Personnel/select_money";
     //    意见反馈
-    public static String feedBackAdd = "http://k.360lst.com/index.php?s=/Home/Affair/add";
+    public static String feedBackAdd = "http://192.168.1.148/longshangxing/index.php?s=/Home/Affair/add";
     //    获取轮播图
-    public static String select_pic = "http://k.360lst.com/index.php?s=/Home/Pic/select_pic";
+    public static String select_pic = "http://192.168.1.148/longshangxing/index.php?s=/Home/Pic/select_pic";
     //    获取首页图
-    public static String select_banner = "http://k.360lst.com/index.php?s=/Home/Pic/select_banner";
-    //    获取地址历史记录
-    public static String addressHistory = "http://k.360lst.com/index.php?s=/Home/Address/index";
+    public static String select_banner = "http://192.168.1.148/longshangxing/index.php?s=/Home/Pic/select_banner";
+    //提现
+    public static String withdrawals = "http://192.168.1.148/longshangxing/index.php?s=/Home/Withdrawals/withdrawals";
+    //提现记录
+    public static String select_with = "http://192.168.1.148/longshangxing/index.php?s=/Home/Withdrawals/select_with";
+    //奖惩记录
+    public static String select_change = "http://192.168.1.148/longshangxing/index.php?s=/Home/Withdrawals/select_change";
+    // 获取今日订单
+    public static String today_order = "http://192.168.1.148/longshangxing/index.php?s=/Home/Perorder/today_order";
+    // 获取可接订单
+    public static String deliveryman_order = "http://192.168.1.148/longshangxing/index.php?s=/Home/Order/deliveryman_order";
+
+
 }

@@ -19,7 +19,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:background="@color/bg_Gray_light"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -56,11 +56,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/name"
+                        android:text="@string/true_name"
                         android:textColor="@color/middle_gray"
                         android:textSize="15sp" />
 
                     <EditText
+                        android:id="@+id/et_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -91,6 +92,7 @@
                         android:textSize="15sp" />
 
                     <EditText
+                        android:id="@+id/card_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -127,6 +129,7 @@
                         android:orientation="vertical">
 
                         <ImageView
+                            android:id="@+id/img_upload_front"
                             android:layout_width="match_parent"
                             android:layout_height="70dp"
                             android:src="@mipmap/id_card_a_tmp" />
@@ -150,6 +153,7 @@
                         android:orientation="vertical">
 
                         <ImageView
+                            android:id="@+id/img_upload_back"
                             android:layout_width="match_parent"
                             android:layout_height="70dp"
                             android:src="@mipmap/idcard_b_tmp" />
@@ -222,6 +226,7 @@
                     android:textSize="15sp" />
 
                 <EditText
+                    android:id="@+id/profession"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -254,6 +259,7 @@
                     android:textSize="15sp" />
 
                 <EditText
+                    android:id="@+id/emergency_contact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -287,7 +293,7 @@
                     android:textSize="15sp" />
 
                 <EditText
-                    android:id="@+id/editText"
+                    android:id="@+id/emergency_contact_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -321,6 +327,7 @@
                     android:textSize="15sp" />
 
                 <EditText
+                    android:id="@+id/et_current_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -354,160 +361,59 @@
                     android:textColor="@color/middle_gray"
                     android:textSize="15sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <com.lst.lscourier.view.FlowRadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:orientation="vertical">
+                    android:contentDescription="性别"
+                    android:orientation="horizontal"
+                    android:padding="3dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <RadioButton
+                        android:id="@+id/radioMale1"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
+                        android:checked="true"
+                        android:padding="3dp"
+                        android:text="@string/bicycle" />
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/bicycle"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_gravity="center_vertical"
-                                android:background="@drawable/trip_mode_select_tv" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:text="@string/bicycle"
-                                android:textColor="@color/black"
-                                android:textSize="16sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/electrombile"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_gravity="center_vertical"
-                                android:background="@drawable/trip_mode_select_tv" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:text="@string/electrombile"
-                                android:textColor="@color/black"
-                                android:textSize="16sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/motorcycle"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_gravity="center_vertical"
-                                android:background="@drawable/trip_mode_select_tv" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:text="@string/motorcycle"
-                                android:textColor="@color/black"
-                                android:textSize="16sp" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <RadioButton
+                        android:id="@+id/radioMale2"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
+                        android:padding="3dp"
+                        android:text="@string/electrombile" />
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
+                    <RadioButton
+                        android:id="@+id/radioMale3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/motorcycle" />
 
-                            <TextView
-                                android:id="@+id/subway"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_gravity="center_vertical"
-                                android:background="@drawable/trip_mode_select_tv" />
+                    <RadioButton
+                        android:id="@+id/radioMale4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/subway" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:text="@string/subway"
-                                android:textColor="@color/black"
-                                android:textSize="16sp" />
-                        </LinearLayout>
+                    <RadioButton
+                        android:id="@+id/radioMale5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/bus" />
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
+                    <RadioButton
+                        android:id="@+id/radioMale6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/car" />
+                </com.lst.lscourier.view.FlowRadioGroup>
 
-                            <TextView
-                                android:id="@+id/bus"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_gravity="center_vertical"
-                                android:background="@drawable/trip_mode_select_tv" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:text="@string/bus"
-                                android:textColor="@color/black"
-                                android:textSize="16sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/car"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_gravity="center_vertical"
-                                android:background="@drawable/trip_mode_select_tv" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:text="@string/car"
-                                android:textColor="@color/black"
-                                android:textSize="16sp" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
             </LinearLayout>
 
             <TextView

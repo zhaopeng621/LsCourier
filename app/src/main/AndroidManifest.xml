@@ -38,7 +38,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
 
     <application
@@ -118,10 +118,19 @@
             android:value="8613aa0d695e35b11ac7f32b3408794d" />
         <!-- 定位需要的服务 -->
         <service android:name="com.amap.api.location.APSService"></service>
-        <activity android:name="com.amap.api.navi.AmapRouteActivity"
+        <activity
+            android:name="com.amap.api.navi.AmapRouteActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
-
-
+        <!--银联支付-->
+        <activity
+            android:name="com.unionpay.uppay.PayActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.unionpay.UPPayWapActivity"
+            android:configChanges="orientation|keyboardHidden|fontScale"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <!-- 解决6.0权限问题 -->
         <provider
             android:name="android.support.v4.content.FileProvider"

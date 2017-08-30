@@ -3,12 +3,27 @@
     android:id="@+id/list_item_ll"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
+    android:layout_marginTop="5dp"
+    android:background="@color/bg_Gray_light"
     android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:background="@color/white">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="3dp"
+        android:paddingTop="3dp">
+
+        <TextView
+            android:id="@+id/order_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="@string/order_number"
+            android:textColor="@color/bg_Black_light"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/order_status"
@@ -22,99 +37,110 @@
             android:textSize="15sp" />
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:layout_marginTop="2dp"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:gravity="center_vertical"
-                android:text="@string/order_taking"
-                android:textColor="@color/middle_gray" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:gravity="center_vertical"
-                android:text="@string/service"
-                android:textColor="@color/middle_gray" />
-        </LinearLayout>
+        android:layout_marginTop="1dp"
+        android:background="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/order_price"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/order_taking"
+                    android:textColor="@color/bg_Black_light" />
 
                 <TextView
                     android:id="@+id/ordertaking_address"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4"
-                    android:ellipsize="end"
-                    android:gravity="center_vertical"
-                    android:lines="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/order_taking_address"
                     android:textColor="@color/black" />
 
-                <TextView
-                    android:id="@+id/order_price"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/order_price"
-                    android:textColor="@color/black" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/service_address"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:ellipsize="end"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:lines="1"
-                android:text="@string/service_address"
-                android:textColor="@color/black" />
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/service"
+                    android:textColor="@color/bg_Black_light" />
+
+                <TextView
+                    android:id="@+id/service_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/service_address"
+                    android:textColor="@color/black" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/order_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:text="@string/order_price"
+            android:textColor="@color/tomato"
+            android:textSize="25sp" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_marginTop="2dp"
-        android:background="@color/white">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="5dp">
+
         <TextView
-            android:id="@+id/order_number"
+            android:id="@+id/ordertime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="@string/order_number"
+            android:text="@string/order_run_time"
             android:textColor="@color/bg_Black_light"
             android:textSize="15sp" />
+
         <TextView
-            android:id="@+id/ordertime"
+            android:id="@+id/close_order"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-           android:layout_alignParentRight="true"
-            android:text="@string/order_time"
-            android:textColor="@color/bg_Black_light"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/voucher_stroke_gray"
+            android:padding="5dp"
+            android:text="@string/close_order"
+            android:visibility="gone"
+            android:textColor="@color/bg_Black"
             android:textSize="15sp" />
     </RelativeLayout>
+
+
 </LinearLayout>

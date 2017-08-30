@@ -35,6 +35,7 @@ import com.lst.lscourier.LruCacheUtils.ImageCacheManager;
 import com.lst.lscourier.R;
 import com.lst.lscourier.adapter.GuidePageAdapter;
 import com.lst.lscourier.app.App;
+import com.lst.lscourier.bean.UserBean;
 import com.lst.lscourier.parmas.ParmasUrl;
 import com.lst.lscourier.utils.SharePrefUtil;
 import com.lst.lscourier.utils.Tools;
@@ -53,7 +54,9 @@ import java.net.URL;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -81,6 +84,7 @@ public class WelcomeActivity extends Activity implements
     private String recNo;
     private String apkUrl;
     private boolean isNet;
+    private ProgressDialog pd;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -146,7 +150,7 @@ public class WelcomeActivity extends Activity implements
         String week = getWeek();
         if (SharePrefUtil.getBoolean(WelcomeActivity.this, "isFirst", true)) {
             if (isNet) {
-//            checkUpdate();
+                checkUpdate();
                 getImgs();
             } else {
                 showSettingDialog();
@@ -155,7 +159,7 @@ public class WelcomeActivity extends Activity implements
             if (!isNet) {
                 showSettingDialog();
             } else {
-                //            checkUpdate();
+                checkUpdate();
                 if (week.equals("星期一")) {
                     getImgs();
                     return;
@@ -179,10 +183,10 @@ public class WelcomeActivity extends Activity implements
     }
 
     protected void downLoadApk() {
-        final ProgressDialog pd; // 进度条对话框
-        pd = new ProgressDialog(this);
+        // 进度条对话框
+        pd = ProgressDialog.show(WelcomeActivity.this, "正在下载更新", "");
         pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        pd.setMessage("正在下载更新");
+//        pd.setMessage("正在下载更新");
         pd.show();
         new Thread() {
             @Override
@@ -201,6 +205,14 @@ public class WelcomeActivity extends Activity implements
                 }
             }
         }.start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (pd != null) {
+            pd.dismiss();
+        }
     }
 
     protected void installApk(File file) {
@@ -226,7 +238,7 @@ public class WelcomeActivity extends Activity implements
             pd.setMax(conn.getContentLength());
             InputStream is = conn.getInputStream();
             File file = new File(Environment.getExternalStorageDirectory(),
-                    "LstShopWeb.apk");
+                    "LsSsy.apk");
             FileOutputStream fos = new FileOutputStream(file);
             BufferedInputStream bis = new BufferedInputStream(is);
             byte[] buffer = new byte[1024];
@@ -248,38 +260,41 @@ public class WelcomeActivity extends Activity implements
     }
 
     protected void showUpdateDialog() {
-        Builder builer = new Builder(this);
+        final AlertDialog.Builder builer = new AlertDialog.Builder(this);
         builer.setTitle("版本升级");
         builer.setMessage("检查到有新的版本，请尽快升级");
         // 当点确定按钮时从服务器上下载 新的apk 然后安装
-        builer.setPositiveButton("确定", new OnClickListener() {
+        builer.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 downLoadApk();
             }
         });
         // 当点取消按钮时进行登录
-        builer.setNegativeButton("取消", new OnClickListener() {
+        builer.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // TODO Auto-generated method stub
                 dialog.dismiss();
+                enterHome();
             }
         });
-        AlertDialog dialog = builer.create();
-        dialog.show();
+//        AlertDialog dialog = builer.create();
+        builer.show();
     }
-
 
     private void checkUpdate() {
         // 请求地址
-        String url = "http://www.360lst.com/mobile/index.php?act=index&op=apk_version";
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
+        String url = ParmasUrl.check;
+        Map<String, String> map = new HashMap<>();
+        map.put("version", getVersion());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, new JSONObject(map), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 try {
+                    Log.d("check-----", jsonObject.toString());
                     JSONObject
-                            obj = jsonObject.getJSONObject("datas");
+                            obj = jsonObject.getJSONObject("data");
                     recNo = obj.getString("version");
                     String url = obj.getString("url");
                     Message msg = mHandler.obtainMessage();
@@ -293,7 +308,7 @@ public class WelcomeActivity extends Activity implements
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(WelcomeActivity.this, volleyError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(WelcomeActivity.this, "check-----" + volleyError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         jsonObjectRequest.setTag("abcPost");
@@ -304,7 +319,13 @@ public class WelcomeActivity extends Activity implements
     private void enterHome() {
         Intent intent = new Intent();
         if (SharePrefUtil.getBoolean(WelcomeActivity.this, "isLogin", false)) {
-            intent.setClass(WelcomeActivity.this, MainActivity.class);
+            UserBean user = (UserBean) SharePrefUtil.getObj(WelcomeActivity.this, "User");
+            String is_pay = user.getIs_pay();
+            if (is_pay.equals("0")) {
+                intent.setClass(WelcomeActivity.this, DataFillingActivity.class);
+            } else {
+                intent.setClass(WelcomeActivity.this, MainActivity.class);
+            }
         } else {
             intent.setClass(WelcomeActivity.this, LoginActivity.class);
         }
@@ -373,6 +394,11 @@ public class WelcomeActivity extends Activity implements
                 iv_point.setBackgroundResource(R.mipmap.login_point_selected);
             } else {
                 iv_point.setBackgroundResource(R.mipmap.login_point);
+            }
+            if (viewList.size() == 1) {
+                ib_start.setVisibility(View.VISIBLE);
+                tv_version.setVisibility(View.VISIBLE);
+                tv_version.setText("V : " + versonNow);
             }
             // 将数组中的ImageView加入到ViewGroup
             vg.addView(ivPointArray[i]);

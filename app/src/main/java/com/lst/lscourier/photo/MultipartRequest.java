@@ -34,10 +34,13 @@ public class MultipartRequest extends Request<String> {
     private final Response.Listener<String> mListener;
 
     private List<File> mFileParts;
+    private List<String> mFilePartNames;
     private String mFilePartName;
     private Map<String, String> mParams;
+
     /**
      * 单个文件
+     *
      * @param url
      * @param errorListener
      * @param listener
@@ -59,8 +62,31 @@ public class MultipartRequest extends Request<String> {
         mParams = params;
         buildMultipartEntity();
     }
+
+    /**
+     * 多个文件，对应多个key
+     *
+     * @param url
+     * @param errorListener
+     * @param listener
+     * @param mFileNames
+     * @param files
+     * @param params
+     */
+    public MultipartRequest(String url, Response.ErrorListener errorListener,
+                            Response.Listener<String> listener, List<String> mFileNames,
+                            List<File> files, Map<String, String> params) {
+        super(Method.POST, url, errorListener);
+        mFilePartNames = mFileNames;
+        mListener = listener;
+        mFileParts = files;
+        mParams = params;
+        buildMultipartEntity();
+    }
+
     /**
      * 多个文件，对应一个key
+     *
      * @param url
      * @param errorListener
      * @param listener
@@ -81,11 +107,14 @@ public class MultipartRequest extends Request<String> {
 
     private void buildMultipartEntity() {
         if (mFileParts != null && mFileParts.size() > 0) {
-            for (File file : mFileParts) {
-                entity.addPart(mFilePartName, new FileBody(file));
+//            for (File file : mFileParts) {
+//                entity.addPart(mFilePartName, new FileBody(file));
+//            }
+            for (int i = 0; i < mFileParts.size(); i++) {
+                entity.addPart(mFilePartNames.get(i), new FileBody(mFileParts.get(i)));
             }
             long l = entity.getContentLength();
-            Log.d("MultipartEntity=",mFileParts.size()+"个，长度："+l);
+            Log.d("MultipartEntity=", mFileParts.size() + "个，长度：" + l);
         }
 
         try {

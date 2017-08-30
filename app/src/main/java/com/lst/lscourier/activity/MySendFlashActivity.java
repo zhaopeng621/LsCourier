@@ -1,10 +1,13 @@
 package com.lst.lscourier.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
@@ -18,6 +21,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
@@ -26,6 +30,7 @@ import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.lst.lscourier.R;
 import com.lst.lscourier.app.App;
 import com.lst.lscourier.bean.UserBean;
+import com.lst.lscourier.parmas.MyJsonObjectRequest;
 import com.lst.lscourier.parmas.ParmasUrl;
 import com.lst.lscourier.photo.MultipartRequest;
 import com.lst.lscourier.utils.FileUtils;
@@ -54,7 +59,21 @@ public class MySendFlashActivity extends Activity implements View.OnClickListene
     private View view;
     private LinearLayout popwindowBackground, my_order_ll, cash_account_ll,
             rewards_and_punishment_record_ll, promotion_record_ll;
-    private UserBean userBean;
+    private UserBean userBean = new UserBean();
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+
+                case 1:
+                    userBean = (UserBean) msg.obj;
+                    getUserDetail();
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +82,8 @@ public class MySendFlashActivity extends Activity implements View.OnClickListene
         setContentView(R.layout.activity_my_send_flash);
         initTitle();
         initView();
-        getUserDetail();
+        getUserBean(SharePrefUtil.getString(MySendFlashActivity.this, "userid",
+                ""));
     }
 
     private void initView() {
@@ -101,7 +121,6 @@ public class MySendFlashActivity extends Activity implements View.OnClickListene
     }
 
     public void getUserDetail() {
-        userBean = (UserBean) SharePrefUtil.getObj(MySendFlashActivity.this, "User");
         String text = userBean.getUsername();
         if (!TextUtils.isEmpty(text) && text.length() > 6) {
             StringBuilder sb = new StringBuilder();
@@ -118,7 +137,7 @@ public class MySendFlashActivity extends Activity implements View.OnClickListene
         if (userBean.getPic() != null && !userBean.getPic().equals("null")) {
 //            ImageCacheManager.loadImage(userBean.getPic(), head_portrait, ImageCacheManager.getBitmapFromRes(MySendFlashActivity.this, R.mipmap.default_user_head),
 //                    ImageCacheManager.getBitmapFromRes(MySendFlashActivity.this, R.mipmap.default_user_head));
-            Glide.with(MySendFlashActivity.this).load( userBean.getPic())
+            Glide.with(MySendFlashActivity.this).load(userBean.getPic())
                     .error(R.mipmap.default_user_head)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .skipMemoryCache(true)
@@ -291,4 +310,58 @@ public class MySendFlashActivity extends Activity implements View.OnClickListene
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(FileUtils.makeFile()));
         startActivityForResult(intent, 3);
     }
+
+    /*
+       * 获取用户信息
+       */
+    @SuppressLint("NewApi")
+    private void getUserBean(String mId) {
+        String url = ParmasUrl.showuser;
+        Map<String, String> map = new HashMap<>();
+        map.put("id", mId);
+        // 创建StringRequest，定义字符串请求的请求方式为POST，
+        MyJsonObjectRequest jsonObjectRequest = new MyJsonObjectRequest(Request.Method.POST, url, map, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject object) {
+                Log.d("getUserBean======", object.toString());
+                try {
+                    if (object.getString("code").equals("200")) {
+                        JSONObject data = object.getJSONObject("data");
+                        JSONObject obj = data.getJSONObject("0");
+                        UserBean userBean = new UserBean();
+                        userBean.setId(obj.getString("id"));
+                        userBean.setUsername(obj.getString("username"));
+                        userBean.setPic(obj.getString("pic"));
+//                        userBean.setId_card(obj.getString("id_card"));
+//                        userBean.setStatus(obj.getString("status"));
+                        userBean.setIs_pay(obj.getString("is_pay"));
+                        userBean.setMoney(obj.getString("money"));
+                        userBean.setToday_money(data.getString("today_money"));
+                        userBean.setY_day_money(data.getString("y_day_money"));
+                        userBean.setAll_money(data.getString("all_money"));
+                        userBean.setExit_order(data.getString("exit_order"));
+                        userBean.setOrder(data.getString("order"));
+                        userBean.setMonth_money(data.getString("month_money"));
+                        Message msg = handler.obtainMessage();
+                        msg.what = 1;
+                        msg.obj = userBean;
+                        handler.sendMessage(msg);
+                    }
+                    Toast.makeText(MySendFlashActivity.this, object.getString("msg"), Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Toast.makeText(MySendFlashActivity.this, VolleyErrorHelper.getMessage(volleyError, MySendFlashActivity.this), Toast.LENGTH_SHORT).show();
+            }
+        });
+        jsonObjectRequest.setTag("loginPost");
+        // 将请求添加到队列中
+        App.getHttpQueue().add(jsonObjectRequest);
+
+    }
+
 }

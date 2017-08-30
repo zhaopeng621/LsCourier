@@ -60,12 +60,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     SharePrefUtil.saveBoolean(LoginActivity.this, "isLogin",
                             true);
                     SharePrefUtil.saveObj(LoginActivity.this, "User", mUser);
-                    if (SharePrefUtil.getBoolean(LoginActivity.this, "isDataFilling", false)) {
+                    if (mUser.getIs_pay().equals("1")) {
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     } else {
                         startActivity(new Intent(LoginActivity.this, DataFillingActivity.class));
                     }
-                    Log.d("isDataFilling", String.valueOf(SharePrefUtil.getBoolean(LoginActivity.this, "isDataFilling", false)));
                     finish();
                     break;
                 default:
@@ -172,8 +171,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                         userBean.setId(obj.getString("id"));
                         userBean.setUsername(obj.getString("username"));
                         userBean.setPic(obj.getString("pic"));
-                        userBean.setId_card(obj.getString("id_card"));
-                        userBean.setStatus(obj.getString("status"));
                         userBean.setIs_pay(obj.getString("is_pay"));
                         userBean.setMoney(obj.getString("money"));
                         userBean.setToday_money(data.getString("today_money"));

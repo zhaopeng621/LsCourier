@@ -2,7 +2,6 @@ package com.lst.lscourier.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +23,7 @@ import com.lst.lscourier.parmas.MyJsonObjectRequest;
 import com.lst.lscourier.parmas.ParmasUrl;
 import com.lst.lscourier.utils.SharePrefUtil;
 import com.lst.lscourier.utils.VolleyErrorHelper;
+import com.lst.lscourier.view.LazyFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,11 +39,12 @@ import java.util.Map;
  * 提现记录
  */
 
-public class WithdrawRecordFragment extends Fragment implements XRecyclerView.LoadingListener {
+public class WithdrawRecordFragment extends LazyFragment implements XRecyclerView.LoadingListener {
     private View view;
     private TextView tv_null;
     private XRecyclerView recyclerview;
-    private List<WithdrawBean> datas = new ArrayList<>();
+    private List<WithdrawBean> datas ;
+    private boolean isPrepared;
     public WithdrawRecordFragment() {
 
     }
@@ -55,9 +56,20 @@ public class WithdrawRecordFragment extends Fragment implements XRecyclerView.Lo
         if (view == null) {
             view = inflater.inflate(R.layout.withdraw_record_fragment, container, false);
         }
+
+        isPrepared = true;
+        lazyLoad();
+
+        return view;
+    }
+    @Override
+    protected void lazyLoad() {
+        // TODO Auto-generated method stub
+        if (!isPrepared || !isVisible) {
+            return;
+        }
         initView(view);
         getDatas();
-        return view;
     }
 
     private void initView(View view) {
@@ -72,6 +84,7 @@ public class WithdrawRecordFragment extends Fragment implements XRecyclerView.Lo
     }
 
     public void getDatas() {
+        datas = new ArrayList<>();
         String url = ParmasUrl.select_with;
         Map<String, String> map = new HashMap<>();
         map.put("deliveryman_id", SharePrefUtil.getString(getActivity(), "userid", ""));

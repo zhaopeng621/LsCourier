@@ -1,6 +1,8 @@
 package com.lst.lscourier.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -36,7 +38,7 @@ import java.util.Map;
 public class MyWalletActivity extends Activity implements View.OnClickListener {
 
     private Button wallet_return;
-    private Button instant_recharge;
+    private Button instant_recharge, deposit_refund;
     private RelativeLayout transaction_details;
     private RelativeLayout price_indication;
     private TextView tv_balance;
@@ -51,12 +53,14 @@ public class MyWalletActivity extends Activity implements View.OnClickListener {
         tv_balance = (TextView) findViewById(R.id.tv_balance);
         wallet_return = (Button) findViewById(R.id.wallet_return);
         instant_recharge = (Button) findViewById(R.id.instant_recharge);
+        deposit_refund = (Button) findViewById(R.id.deposit_refund);
 
         transaction_details = (RelativeLayout) findViewById(R.id.transaction_details);
         price_indication = (RelativeLayout) findViewById(R.id.price_indication);
 
         wallet_return.setOnClickListener(this);
         instant_recharge.setOnClickListener(this);
+        deposit_refund.setOnClickListener(this);
 
         transaction_details.setOnClickListener(this);
         price_indication.setOnClickListener(this);
@@ -74,6 +78,25 @@ public class MyWalletActivity extends Activity implements View.OnClickListener {
                 instantRecharge.setClass(this, WithdrawActivity.class);
                 startActivity(instantRecharge);
                 break;
+            case R.id.deposit_refund:
+                new AlertDialog.Builder(MyWalletActivity.this)
+                        .setTitle("确认")
+                        .setMessage("押金退回后将无法使用龙商闪送员，是否继续？")
+                        .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                depositRefund();
+                            }
+                        })
+                        .setNegativeButton("否", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })
+                        .show();
+
+                break;
             case R.id.transaction_details:
                 Intent transactionDetails = new Intent();
                 transactionDetails.setClass(this, TransactionDetailsActivity.class);
@@ -87,6 +110,10 @@ public class MyWalletActivity extends Activity implements View.OnClickListener {
                 startActivity(priceInstruction);
                 break;
         }
+    }
+
+    private void depositRefund() {
+
     }
 
     @Override

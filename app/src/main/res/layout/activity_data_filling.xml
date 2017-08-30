@@ -5,7 +5,30 @@
     android:background="@color/bg_White"
     android:orientation="vertical">
 
-    <include layout="@layout/title_layout" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_hight"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text=""
+            android:textColor="@color/bg_White"
+            android:textSize="20dp" />
+
+        <ImageView
+            android:id="@+id/more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:background="@mipmap/more" />
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -365,7 +388,6 @@
                     android:id="@+id/radioGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="性别"
                     android:orientation="horizontal"
                     android:padding="3dp">
 
@@ -418,22 +440,25 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/light_gray" />
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textSize="15sp"
+                android:gravity="center_vertical"
+                android:textColor="@color/tomato"
+                android:text="注：成为龙商闪送员需缴纳押金1000元，点击下一步表示您同意支付"
+               />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/light_gray">
+                android:orientation="vertical"
+                >
 
                 <Button
                     android:id="@+id/data_filling_next_step"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="10dp"
                     android:background="@drawable/button_corner"
                     android:gravity="center"
                     android:text="@string/next_step"

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/mytext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ll_popup"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dip"
+        android:text="点击此处返回"
+        android:textColor="@color/bg_White"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:id="@+id/ll_popup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/lin_go_sy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="15dip"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:text="本次交易需在线支付"
+                    android:textColor="@color/bg_Black_light"
+                    android:textSize="14.0sp" />
+
+                <TextView
+                    android:id="@+id/goods_all_pay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:text="￥:25.00"
+                    android:textColor="@color/tomato"
+                    android:textSize="15.0sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:text="元"
+                    android:textColor="@color/bg_Black_light"
+                    android:textSize="14.0sp" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/pop_back"
+                android:layout_width="25dip"
+                android:layout_height="25dip"
+                android:layout_alignParentRight="true"
+                android:src="@android:drawable/presence_offline" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0.5dip"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:background="@color/bg_Gray" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip">
+
+            <TextView
+                android:id="@+id/text_fs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:text="在线支付方式"
+                android:textColor="@color/bg_Black_light"
+                android:textSize="15.0sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dip"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/text_fs"
+                android:background="@color/bg_Gray" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dip"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/text_fs"
+                android:background="@color/bg_Gray" />
+
+        </RelativeLayout>
+
+
+        <ImageView
+            android:id="@+id/pop_bank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dip"
+            android:src="@mipmap/unionpay" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dip"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/goto_pay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="5dip"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="20dip"
+                android:layout_marginTop="5dip"
+                android:background="@color/tomato"
+                android:text="确认支付"
+                android:textColor="@color/bg_White"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

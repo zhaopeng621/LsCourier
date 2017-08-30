@@ -26,12 +26,16 @@ public class RecyclerAdapter extends XRecyclerView.Adapter<RecyclerAdapter.MyHol
     private View view;
     private List<OrderEntry> datas = new ArrayList<>();
     private Context mContext;
-
+    private MyClickListener mListener;
     public RecyclerAdapter(List<OrderEntry> datas, Context context) {
         this.datas = datas;
         this.mContext = context;
     }
-
+    public RecyclerAdapter(List<OrderEntry> datas, Context context, MyClickListener mListener) {
+        this.datas = datas;
+        this.mContext = context;
+        this.mListener = mListener;
+    }
     @Override
     public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
@@ -47,9 +51,13 @@ public class RecyclerAdapter extends XRecyclerView.Adapter<RecyclerAdapter.MyHol
         holder.ordertaking_address.setText(datas.get(position).getStart_address() + datas.get(position).getStart_xxaddress());
         holder.service_address.setText(datas.get(position).getExit_address() + datas.get(position).getExit_xxaddress());
 //        String timet = TimeUtils.timet(datas.get(position).getStart_time());
-        holder.ordertime.setText(datas.get(position).getStart_time());
+        holder.ordertime.setText(datas.get(position).getOrder_time());
         holder.list_item_ll.setTag(position);
-
+        if (datas.get(position).getOrder_status().equals("未付款") || datas.get(position).getOrder_status().equals("已付款")) {
+            holder.close_order.setVisibility(View.VISIBLE);
+            holder.close_order.setOnClickListener(mListener);
+            holder.close_order.setTag(position);
+        }
     }
 
     @Override
@@ -70,7 +78,7 @@ public class RecyclerAdapter extends XRecyclerView.Adapter<RecyclerAdapter.MyHol
 
     public class MyHolder extends RecyclerView.ViewHolder {
         private TextView order_number, order_status, order_price, ordertaking_address,
-                service_address, ordertime;
+                service_address, ordertime,close_order ;
         private LinearLayout list_item_ll;
 
         public MyHolder(View itemView) {
@@ -82,7 +90,21 @@ public class RecyclerAdapter extends XRecyclerView.Adapter<RecyclerAdapter.MyHol
             service_address = (TextView) itemView.findViewById(R.id.service_address);
             ordertime = (TextView) itemView.findViewById(R.id.ordertime);
             list_item_ll = (LinearLayout) itemView.findViewById(R.id.list_item_ll);
-
+            close_order = (TextView) itemView.findViewById(R.id.close_order);
         }
+    }
+    /**
+     * 25 * 自定义接口，用于回调按钮点击事件到Activity
+     */
+    public static abstract class MyClickListener implements View.OnClickListener {
+        /**
+         * 基类的onClick方法
+         */
+        @Override
+        public void onClick(View v) {
+            myOnClick((Integer) v.getTag(), v);
+        }
+
+        public abstract void myOnClick(int position, View v);
     }
 }
